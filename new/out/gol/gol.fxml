@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1220.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gol.Controller">
+    <children>
+        <MenuBar fx:id="menuBar" prefHeight="30.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <menus>
+                <Menu text="File">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#fileChooser" text="Open">
+                        </MenuItem>
+                        <MenuItem onAction="#exitGame" text="Exit">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="F3" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator></MenuItem>
+                    </items>
+                </Menu>
+                <Menu text="About">
+                    <items>
+                        <MenuItem onAction="#about" text="About GoL">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="F1" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+                    <items>
+                        <MenuItem onAction="#madeBy" text="Made by..">
+                            <accelerator>
+                                <KeyCodeCombination alt="UP" code="F2" control="UP" meta="UP" shift="UP" shortcut="UP" />
+                            </accelerator>
+                        </MenuItem>
+                    </items>
+
+                </Menu>
+            </menus>
+        </MenuBar>
+        <AnchorPane layoutY="32.0" prefHeight="700.0" prefWidth="948.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="32.0">
+            <children>
+                <Canvas fx:id="theCanvas" height="707.0" onMouseClicked="#MouseDraw" onMouseDragged="#MouseDraw" width="948.0" />
+            </children></AnchorPane>
+        <Button fx:id="playStop" layoutX="14.0" layoutY="781.0" mnemonicParsing="false" onAction="#playStop" prefHeight="32.0" prefWidth="75.0" text="Play" />
+        <Button fx:id="exitKnapp" layoutX="193.0" layoutY="781.0" mnemonicParsing="false" onAction="#randomGame" prefHeight="32.0" prefWidth="112.0" text="Randomize" />
+        <ColorPicker fx:id="cellColor" layoutX="1051.0" layoutY="692.0" prefHeight="32.0" prefWidth="127.0" styleClass="colorpicker" />
+        <Button layoutX="108.0" layoutY="781.0" mnemonicParsing="false" onAction="#clearButton" prefHeight="32.0" prefWidth="75.0" text="Clear" />
+        <ImageView fitHeight="156.0" fitWidth="130.0" layoutX="1019.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="img/monster.png" />
+            </image>
+        </ImageView>
+        <Button fx:id="exitGame" layoutX="1026.0" layoutY="781.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="32.0" prefWidth="88.0" styleClass="closebutton" text="Close" />
+        <Button fx:id="oneStep" layoutX="317.0" layoutY="781.0" mnemonicParsing="false" onAction="#oneStep" prefHeight="32.0" prefWidth="112.0" text="One Generation" />
+        <Slider fx:id="speedSlider" layoutX="1001.0" layoutY="443.0" prefHeight="14.0" prefWidth="169.0" />
+        <Label layoutX="1015.0" layoutY="426.0" text="Speed" />
+        <Label layoutX="1019.0" layoutY="504.0" text="Size" />
+        <ColorPicker fx:id="backgroundColor" layoutX="1051.0" layoutY="633.0" prefHeight="32.0" prefWidth="127.0" />
+        <ColorPicker fx:id="gridColor" layoutX="1051.0" layoutY="578.0" prefHeight="32.0" prefWidth="127.0" />
+        <Label fx:id="gridOff" layoutX="1071.0" layoutY="504.0" text="Grid">
+            <font>
+                <Font name="System Bold Italic" size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="964.0" layoutY="639.0" text="Background">
+            <font>
+                <Font name="System Bold Italic" size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="971.0" layoutY="698.0" text="Cell Color">
+            <font>
+                <Font name="System Bold Italic" size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="1003.0" layoutY="268.0" text="Game of Life - GoL">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Label layoutX="1062.0" layoutY="295.0" text="by Moki">
+            <font>
+                <Font size="12.0" />
+            </font>
+        </Label>
+        <Label layoutX="1004.0" layoutY="356.0" text="Adjust the Game">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <Slider fx:id="sizeSlider" layoutX="1002.0" layoutY="538.0" prefHeight="14.0" prefWidth="169.0" />
+        <Separator layoutX="954.0" layoutY="340.0" prefHeight="4.0" prefWidth="258.0" />
+      <Button layoutX="805.0" layoutY="787.0" mnemonicParsing="false" onAction="#fileChooser" prefHeight="32.0" prefWidth="149.0" text="Load your Pattern" />
+      <Button layoutX="488.0" layoutY="782.0" mnemonicParsing="false" onAction="#smallBoard" prefHeight="31.0" prefWidth="42.0" text="XS" />
+      <Button layoutX="542.0" layoutY="782.0" mnemonicParsing="false" onAction="#mediumBoard" prefHeight="31.0" prefWidth="42.0" text="M" />
+      <Button layoutX="599.0" layoutY="782.0" mnemonicParsing="false" onAction="#largeBoard" prefHeight="31.0" prefWidth="42.0" text="XL" />
+      <Label layoutX="964.0" layoutY="584.0" text="Grid Color">
+         <font>
+            <Font name="System Bold Italic" size="14.0" />
+         </font>
+      </Label>
+      <Button layoutX="1104.0" layoutY="739.0" mnemonicParsing="false" onAction="#test" text="Button" />
+      <CheckBox fx:id="setGrid" layoutX="668.0" layoutY="787.0" mnemonicParsing="false" onAction="#setGrid" text="CheckBox" />
+    </children>
+</AnchorPane>
