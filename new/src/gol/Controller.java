@@ -84,6 +84,7 @@ public class Controller implements Initializable {
         info = new Information();
         handler = new FileHandler();
         gameBoard = new Board(gc, cellSize, 2000, 2000 );
+        //heeei
 
         //=========================================================================//
         //                               Colorpickers                              //

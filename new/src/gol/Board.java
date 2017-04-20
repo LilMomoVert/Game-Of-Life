@@ -131,9 +131,6 @@ public class Board {
         gc.fillRect(0, 0, theWidth*cellSize + 2, theHeight*cellSize + 2);
     }
 
-    public void noe(){
-        gc.clearRect(0,0, theWidth*cellSize + 2, theHeight*cellSize + 2);
-    }
 
     /**
      * Draw method, gets the value from cell Colorpicker
