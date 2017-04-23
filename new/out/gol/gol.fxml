@@ -8,7 +8,6 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.image.Image?>
@@ -100,18 +99,19 @@
                 <Font size="20.0" />
             </font>
         </Label>
+        <CheckBox fx:id="momo" layoutX="1062.0" layoutY="396.0" mnemonicParsing="false" onAction="#momo" text="CheckBox" />
         <Slider fx:id="sizeSlider" layoutX="1002.0" layoutY="538.0" prefHeight="14.0" prefWidth="169.0" />
         <Separator layoutX="954.0" layoutY="340.0" prefHeight="4.0" prefWidth="258.0" />
       <Button layoutX="805.0" layoutY="787.0" mnemonicParsing="false" onAction="#fileChooser" prefHeight="32.0" prefWidth="149.0" text="Load your Pattern" />
-      <Button layoutX="488.0" layoutY="782.0" mnemonicParsing="false" onAction="#smallBoard" prefHeight="31.0" prefWidth="42.0" text="XS" />
-      <Button layoutX="542.0" layoutY="782.0" mnemonicParsing="false" onAction="#mediumBoard" prefHeight="31.0" prefWidth="42.0" text="M" />
-      <Button layoutX="599.0" layoutY="782.0" mnemonicParsing="false" onAction="#largeBoard" prefHeight="31.0" prefWidth="42.0" text="XL" />
       <Label layoutX="964.0" layoutY="584.0" text="Grid Color">
          <font>
             <Font name="System Bold Italic" size="14.0" />
          </font>
       </Label>
       <Button layoutX="1104.0" layoutY="739.0" mnemonicParsing="false" onAction="#test" text="Button" />
-      <CheckBox fx:id="setGrid" layoutX="668.0" layoutY="787.0" mnemonicParsing="false" onAction="#setGrid" text="CheckBox" />
+      <Button layoutX="524.0" layoutY="782.0" mnemonicParsing="false" onAction="#patternUp" prefHeight="27.0" prefWidth="42.0" text="UP" />
+      <Button layoutX="578.0" layoutY="782.0" mnemonicParsing="false" onAction="#patternDown" prefHeight="31.0" prefWidth="64.0" text="Down" />
+      <Button layoutX="468.0" layoutY="782.0" mnemonicParsing="false" onAction="#patternLeft" text="Left" />
+      <Button layoutX="651.0" layoutY="782.0" mnemonicParsing="false" onAction="#patternRight" text="Right" />
     </children>
 </AnchorPane>

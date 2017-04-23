@@ -6,7 +6,6 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -18,14 +17,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static javafx.scene.paint.Color.*;
 
@@ -57,34 +54,44 @@ public class Controller implements Initializable {
     public int theHeight;
     public int theWidth;
     public int X;
+    public boolean testswitch;
     public int Y;
-    private boolean nonDynamic;
+    public CheckBox momo;
+
+    //PLAINTEXT:
+    static List<String> txtStringList;
+    static int fileHeight;
+    static int fileWidth;
+    static final byte patterStart = 0;
+    static byte[][] byteArray;
+    public Stage stage;
 
     //=========================================================================//
     //                             References                                  //
     //=========================================================================//
     Information info;
     FileHandler handler;
-    Board gameBoard;
+    InterfaceBoard gameBoard;
     DynamicBoard dynboard;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        // Setting Gcontext, cellSize, Width and Height
+        // Setting Gcontext, setCellSize, Width and Height
         // @author Momcilo Delic - s315282
-        nonDynamic = true;
-        cellSize = 10;
+        momo.setSelected(true);
+        cellSize = 5;
         gc = theCanvas.getGraphicsContext2D();
-        setGrid.setSelected(true);
 
         //=========================================================================//
         //                             Objects                                     //
         //=========================================================================//
         info = new Information();
         handler = new FileHandler();
-        gameBoard = new Board(gc, cellSize, 2000, 2000 );
-        //heeei
+
+        momo();
+
+        // testcell = new Board(gc, setCellSize, 50 ,50);
 
         //=========================================================================//
         //                               Colorpickers                              //
@@ -96,11 +103,9 @@ public class Controller implements Initializable {
         gridColor.setValue(RED);
         cellColor.setValue(WHITE);
 
-        gameBoard.setGridOff(gridOff);
         gameBoard.setCellColor(cellColor);
         gameBoard.setGridColor(gridColor);
         gameBoard.setBackgroundColor(backgroundColor);
-        gameBoard.setGrid(setGrid);
 
         // Colorpickere med Listener so you can change the color
         // instantly instead of waiting for the next generation for it to apply.
@@ -119,9 +124,16 @@ public class Controller implements Initializable {
 
         //Drawing the Cells and the Grid
         gameBoard.draw();
-        gameBoard.setGrid();
     }
 
+    public void momo(){
+        if (momo.isSelected()){
+            gameBoard = new DynamicBoard(gc, cellSize, 200, 300);
+        } else {
+            gameBoard = new Board(gc, cellSize, 50, 50);
+            gameBoard.draw();
+        }
+    }
 
     // Size listener
     public void sizeSlider(){
@@ -130,11 +142,11 @@ public class Controller implements Initializable {
             public void invalidated(Observable observable) {
                 gc.setFill(Color.BLACK);
                 gc.fillRect(0, 0, theCanvas.getWidth(), theCanvas.getHeight());
-                gameBoard.cellSize(sizeSlider.getValue());
-                sizeSlider.setMin(0.3); //testing
+                cellSize = sizeSlider.getValue();
+                gameBoard.setCellSize(cellSize);
+                sizeSlider.setMin(1); //testing
                 sizeSlider.setMax(100);
                 gameBoard.draw();
-                gameBoard.setGrid();
             }
         });
     }
@@ -169,15 +181,14 @@ public class Controller implements Initializable {
         };
         gameBoard.setgameBoard(testBoard4);
         gameBoard.draw();
-        gameBoard.setGrid();
         System.out.println("hei");
     }
 
+    /**
+     * Timeline jumps to start to the duration ZERO
+     * tl plays with Duration 200 milliseconds
+     */
 
-    // Putting Timeline outside of initialize
-    // Timeline jumps to start to the duration ZERO
-    // tl plays with Duration 200 milliseconds
-    // @Author Momcilo Delic - s315282
     public Timeline tl;{
         tl = new Timeline(new KeyFrame(Duration.millis(200), event -> {;
             nextGen();
@@ -210,47 +221,22 @@ public class Controller implements Initializable {
      *  @author Momcilo Delic
      */
     public void MouseDraw(MouseEvent event) {
-
     try {
-        int x = (int) (event.getX() / gameBoard.cellSize);
-        int y = (int) (event.getY() / gameBoard.cellSize);
+        int x = (int) (event.getX() / cellSize);
+        int y = (int) (event.getY() / cellSize);
 
         if (x != X || y != X) {
-
-            if (gameBoard.board[y][x] == 0) {
-                gameBoard.board[y][x] = 1;
-            }
+            gameBoard.setLive(y, x);
         }
         X = x;
         Y = y;
         gameBoard.draw();
-        gameBoard.setGrid();
     } catch (ArrayIndexOutOfBoundsException AOB) {
+        info.AOBCanvas();
+    } catch (IndexOutOfBoundsException ioob){
         info.AOBCanvas();
     }
     }
-
-    // Set large board (The grid will turn of since the board is too big
-    // and the grid isn't usefull anymore)
-    // @Author Momcilo Delic - s315282
-    public void largeBoard(){
-        gameBoard.cellSize = 2;
-        gameBoard.draw();
-        gameBoard.setGrid();
-    }
-    //Set board, normal size
-    public void mediumBoard(){
-        gameBoard.cellSize = 5;
-        gameBoard.draw();
-        gameBoard.setGrid();
-    }
-    //Set board, small size
-    public void smallBoard(){
-        gameBoard.cellSize = 20;
-        gameBoard.draw();
-        gameBoard.setGrid();
-    }
-
 
     /**
      *
@@ -259,99 +245,86 @@ public class Controller implements Initializable {
         gameBoard.nextGeneration();
     }
 
+    public void patternUp(){
+        try {
+            gameBoard.patternUp();
+        } catch (ArrayIndexOutOfBoundsException ite){
+            info.AOBCanvas();
+        }
+    }
+
+    public void patternDown(){
+        try {
+            gameBoard.patternDown();
+        } catch (ArrayIndexOutOfBoundsException ite){
+            info.AOBCanvas();
+        }
+    }
+
+    public void patternLeft(){
+        try {
+            gameBoard.patternLeft();
+
+        } catch (ArrayIndexOutOfBoundsException ite){
+            info.AOBCanvas();
+        }
+    }
+
+    public void patternRight(){
+        try {
+            gameBoard.patternRight();
+        } catch (ArrayIndexOutOfBoundsException ite){
+            info.AOBCanvas();
+        }
+    }
+
+
     // Random funskjon for å generere celler
     // @Author Momcilo Delic - s315282
     public void randomGame(){
         gameBoard.Randomness();
         gameBoard.draw();
-        gameBoard.setGrid();
     }
 
+
+    public static byte[][] Moki() throws IOException {
+
+        FileChooser patternChooser = new FileChooser();
+        patternChooser.setTitle("Velg fil");
+
+
+        patternChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter(".RLE Extensions", "*.RLE"),
+                new FileChooser.ExtensionFilter("Plain Text", "*.cells"));
+        //ByteArrayInputStream inputStream = new ByteArrayInputStream();
+
+        File test = patternChooser.showOpenDialog(new Stage());
+        if(test != null){
+            txtStringList = readLinesFromFile(test);
+            if(test.toString().endsWith(".rle")) {
+                // return RleParser.readFile(file);
+            }
+            else if(test.toString().endsWith(".cells")){
+                return Cells.parsePlainText();
+            }
+
+        }
+        return null;
+    }
+    private static List<String> readLinesFromFile(File file) throws IOException {
+        return Files.readAllLines(file.toPath());
+    }
 
     public void fileChooser() throws IOException {
-
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open your file");
-
-
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("RLE", "*.rle"),
-                new FileChooser.ExtensionFilter("Text-files", "*.txt")
-        );
-
-
-            File choosenFile = fileChooser.showOpenDialog(null);
-            if (choosenFile != null) {
-                System.out.println("Your choosen file: " + choosenFile);
-            }
-
-
-        String xPattern = ("x = (\\d+)");
-        String yPattern = ("y = (\\d+)");
-
-        int rownumber = 5;
-        int columnnumber = 0;
-        int right = 0;
-        try (Scanner scanner = new Scanner(choosenFile)) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                // checkin g line is empty or commented or with rule line
-                if (line.isEmpty() || Pattern.matches(".*#.*", line) || Pattern.matches(".*rule.*", line)) {
-                    continue;
-                }
-                System.out.println(line);
-                // split the line with $
-                Pattern p = Pattern.compile("(?<=\\$)");
-                String[] items = p.split(line);
-                for (String item : items) {
-                    // itemTmp = 2b3o1b2o$
-                    String itemTmp = item;
-                    // while itemTmp is a valid form
-                    while ((!itemTmp.isEmpty()) && Pattern.matches(".*b.*|.*o.*", itemTmp)) {
-                        // b pattern - eg. 34b --> cnumber will be 34
-                        Pattern bnumber = Pattern.compile("^(?<cnumber>\\d*?)b");
-                        Matcher bmatcher = bnumber.matcher(itemTmp);
-                        // o pattern eg. 3o -> onumber will be 3
-                        Pattern onumber = Pattern.compile("^(?<onumber>\\d*?)o");
-                        Matcher omatcher = onumber.matcher(itemTmp);
-
-                        if (bmatcher.find()) {
-                            String bNumString = bmatcher.group("cnumber");
-                            int bNumInt = 1;
-                            if (!bNumString.isEmpty()) {
-                                bNumInt = Integer.parseInt(bNumString);
-                            }
-                            columnnumber = columnnumber + bNumInt;
-                            itemTmp = itemTmp.replaceFirst("^\\d*?b", "");
-                        } else if (omatcher.find()) {
-                            String oNumString = omatcher.group("onumber");
-                            int oNumInt = 1;
-                            if (!oNumString.isEmpty()) {
-                                oNumInt = Integer.parseInt(oNumString);
-                            }
-                            for (int cnum = 1; cnum <= oNumInt; cnum++) {
-                                gameBoard.board[rownumber + 5 + right][columnnumber + cnum + 4] = 1;
-                                //columnnumber = columnnumber +1;
-                            }
-                            columnnumber = columnnumber + oNumInt;
-                            itemTmp = itemTmp.replaceFirst("^\\d*?o", "");
-                        }
-
-                    }
-                    //if $ ONLY move to next row (row = row + 1 and column =0)
-                    if (Pattern.matches(".*\\$", item)) {
-                        columnnumber = 0;
-                        rownumber = rownumber + 1;
-                   }
-                }
-            }
+        try{
+            gameBoard.setgameBoard(Moki());
+            gc.setFill(Color.BLACK);
+            gc.fillRect(0, 0, theCanvas.getWidth(), theCanvas.getHeight());
             gameBoard.draw();
-            gameBoard.drawGrid();
-        } catch (IOException e) {
-            e.printStackTrace();
+        }catch (IOException ioe){
+            info.Ops();
         }
     }
-
 
 
     //clearButton funksjon som clearer brette
@@ -362,21 +335,17 @@ public class Controller implements Initializable {
         tl.stop();
         playStop.setText("Play");
         gameBoard.draw();
-        gameBoard.setGrid();
     }
 
 
     //Knappfunksjonen som ved trykk bare går en generasjon videre.
     // @Author Momcilo Delic - s315282
-
-
     public void oneStep() {
         //Who needs animation when you got fast fingers :)
         nextGen();
-    }
-
-    public void setGrid(){
-        gameBoard.setGrid();
+        tl.play();
+        tl.stop();
+        gameBoard.draw();
     }
 
     //Fikset en Play/Stop knapp istedenfor å ha 2
@@ -390,7 +359,6 @@ public class Controller implements Initializable {
             tl.play();
             playStop.setText("Stop");
         }
-
     }
 
     // Exit game
@@ -400,5 +368,78 @@ public class Controller implements Initializable {
         Platform.exit();
     }
 
-
 }
+
+
+
+
+
+
+
+
+
+
+/* TIL SENERE
+
+//        int rownumber = 5;
+//        int columnnumber = 0;
+//
+//        try (Scanner scanner = new Scanner(choosenFile)) {
+//            while (scanner.hasNextLine()) {
+//                String line = scanner.nextLine();
+//                // checkin g line is empty or commented or with rule line
+//                if (line.isEmpty() || Pattern.matches(".*#.*", line) || Pattern.matches(".*rule.*", line)) {
+//                    continue;
+//                }
+//                System.out.println(line);
+//                // split the line with $
+//                Pattern p = Pattern.compile("(?<=\\$)");
+//                String[] items = p.split(line);
+//                for (String item : items) {
+//                    // itemTmp = 2b3o1b2o$
+//                    String itemTmp = item;
+//                    // while itemTmp is a valid form
+//                    while ((!itemTmp.isEmpty()) && Pattern.matches(".*b.*|.*o.*", itemTmp)) {
+//                        // b pattern - eg. 34b --> cnumber will be 34
+//                        Pattern bnumber = Pattern.compile("^(?<cnumber>\\d*?)b");
+//                        Matcher bmatcher = bnumber.matcher(itemTmp);
+//                        // o pattern eg. 3o -> onumber will be 3
+//                        Pattern onumber = Pattern.compile("^(?<onumber>\\d*?)o");
+//                        Matcher omatcher = onumber.matcher(itemTmp);
+//
+//                        if (bmatcher.find()) {
+//                            String bNumString = bmatcher.group("cnumber");
+//                            int bNumInt = 1;
+//                            if (!bNumString.isEmpty()) {
+//                                bNumInt = Integer.parseInt(bNumString);
+//                            }
+//                            columnnumber = columnnumber + bNumInt;
+//                            itemTmp = itemTmp.replaceFirst("^\\d*?b", "");
+//                        } else if (omatcher.find()) {
+//                            String oNumString = omatcher.group("onumber");
+//                            int oNumInt = 1;
+//                            if (!oNumString.isEmpty()) {
+//                                oNumInt = Integer.parseInt(oNumString);
+//                            }
+//                            for (int cnum = 1; cnum <= oNumInt; cnum++) {
+//                                gameBoard.setLive(rownumber + 40,columnnumber + cnum + 40);
+//                                //columnnumber = columnnumber +1;
+//                            }
+//                            columnnumber = columnnumber + oNumInt;
+//                            itemTmp = itemTmp.replaceFirst("^\\d*?o", "");
+//                        }
+//
+//                    }
+//                    //if $ ONLY move to next row (row = row + 1 and column =0)
+//                    if (Pattern.matches(".*\\$", item)) {
+//                        columnnumber = 0;
+//                        rownumber = rownumber + 1;
+//                   }
+//                }
+//            }
+//            gameBoard.draw();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+ */

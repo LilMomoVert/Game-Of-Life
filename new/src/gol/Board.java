@@ -7,16 +7,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
 
 import java.util.Random;
-
-import static javafx.scene.paint.Color.RED;
 
 /**
  * Created by Momcilo Delic on 3/19/2017.
  */
-public class Board {
+public class Board implements InterfaceBoard {
 
     //=========================================================================//
     //                             @FXML                                       //
@@ -33,58 +30,42 @@ public class Board {
     public double cellSize;
     public byte[][] board;
     public byte[][] randomBoard;
-    public int theHeight;
+    public int height;
     private GraphicsContext gc;
-    public int theWidth;
+    public int width;
+    int movedistance = 5;
 
     /**
      * Making a constructor for Board class with parameters
-     * gc, cellSize, theHeight and the Width
+     * gc, setCellSize, height and the Width
      * @author Momcilo Delic - s315282
      */
     public Board(GraphicsContext gc, double cellSize, int theHeight, int theWidth) {
         this.cellSize = cellSize;
         this.gc = gc;
-        this.theHeight = theHeight;
-        this.theWidth = theWidth;
+        this.height = theHeight;
+        this.width = theWidth;
         this.board = new byte[theHeight][theWidth];
     }
 
-
-    /**
-     * Colorpickers for cellColor, Background color and the Gridcolor
-     * @author Momcilo Delic - s315282
-     */
-    public void cellColorPicker(){
-        cellColor.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                draw();
-                drawGrid();
-            }
-        });
+    public void setLive(int y, int x){
+        board[y][x] = 1;
     }
 
-    public void backgroundColorPicker(){
-        backgroundColor.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                draw();
-                drawGrid();
-            }
-        });
+    @Override
+    public int getHeight() {
+        return height;
     }
 
-    public void gridColorPicker(){
-        gridColor.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                draw();
-                drawGrid();
-            }
-        });
+    @Override
+    public int getWidth() {
+        return width;
     }
 
+    @Override
+    public byte getLive(int x, int y) {
+        return board[y][x];
+    }
 
     /**
      * @param board For loop board lenght (Changed from Width and Height)
@@ -101,70 +82,22 @@ public class Board {
     }
 
     /**
-     * Draw grid method. The grid turns of if the size of the board
-     * is too big. (Because the grid looks really bad and its basically a background)
-     *
-     * @author Momcilo Delic - s315282
-     */
-    public void drawGrid(){
-        if(cellSize > 3) {
-            for(double i=0; i< board.length + 1; i++){
-                gc.setStroke(gridColor.getValue());
-                gc.strokeLine(0, i*cellSize, theWidth*cellSize, i*cellSize);
-
-
-            }
-
-            for(double j=0; j < board[0].length + 1; j++){
-                gc.setStroke(gridColor.getValue());
-                gc.strokeLine(j*cellSize, 0, j*cellSize, theHeight*cellSize);
-            }
-        gridOff.setText("Grid On");
-    } else {
-        gridOff.setText("Grid Off");
-    }
-}
-
-
-    public void clear(){
-        gc.setFill(backgroundColor.getValue());
-        gc.fillRect(0, 0, theWidth*cellSize + 2, theHeight*cellSize + 2);
-    }
-
-
-    /**
      * Draw method, gets the value from cell Colorpicker
      * and background Colorpicker
      *
      * @author Momcilo Delic - s315282
      */
     public void draw() {
-            clear();
-            gc.setFill(cellColor.getValue());
-            for (int i = 0; i < board.length; i++) {
-                for (int j = 0; j < board[0].length; j++) {
-                    if (board[i][j] == 1)
-                        gc.fillRect(cellSize * j, cellSize * i, cellSize, cellSize);
-                }
+        gc.setFill(backgroundColor.getValue());
+        gc.fillRect(0, 0, width *cellSize + 2, height *cellSize + 2);
+        gc.setFill(cellColor.getValue());
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j] == 1)
+                    gc.fillRect(cellSize * j, cellSize * i, cellSize, cellSize);
             }
         }
-
-    /**
-     * Accessing the Rrandom Java class
-     * Making new byte board (randomBoard)
-     * Setting the randomGenerator to 2
-     *
-     * @author Momcilo Delic - s315282
-     */
-    public void Randomness(){
-        Random randomGenerator = new Random();
-        byte[][] randomBoard = new byte[board.length][board[0].length];
-        for (int y = 0; y < board.length; y++) {
-            for (int x = 0; x < board[0].length; x++) {
-                randomBoard[y][x] = (byte)randomGenerator.nextInt(2);
-            }
-            board = randomBoard;
-        }
+        drawGrid();
     }
 
     /**
@@ -176,7 +109,6 @@ public class Board {
      *
      * @author Momcilo Delic - s315282
      */
-
     public void nextGeneration(){
         byte[][] nextBoard = new byte[board.length][board[0].length];
         for (int x = 1; x < board.length; x++) {
@@ -200,7 +132,6 @@ public class Board {
         }
         board = nextBoard;
         draw();
-        setGrid();
     }
 
     private int countNeighbours(int x, int y) {
@@ -227,25 +158,143 @@ public class Board {
      * @author Momcilo Delic - s315282
      */
     public void ClearBtn(){
-        board = new byte[theHeight][theWidth];
-        randomBoard = new byte[theHeight][theWidth];
+        board = new byte[height][width];
+        randomBoard = new byte[height][width];
 
-        for (int i = 0; i < theHeight; i++) {
-            for (int j = 0; j < theWidth; j++) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 randomBoard[i][j] = (1);
             }
         }
     }
 
-    public void setGrid() {
-        if(setGrid.isSelected()) {
-            drawGrid();
-            gridOff.setText("Grid On");
-        } else {
-            draw();
-            gridOff.setText("Grid Off");
+    /**
+     * Accessing the Rrandom Java class
+     * Making new byte board (randomBoard)
+     * Setting the randomGenerator to 2
+     *
+     * @author Momcilo Delic - s315282
+     */
+    public void Randomness(){
+        Random randomGenerator = new Random();
+        byte[][] randomBoard = new byte[board.length][board[0].length];
+        for (int y = 0; y < board.length; y++) {
+            for (int x = 0; x < board[0].length; x++) {
+                randomBoard[y][x] = (byte)randomGenerator.nextInt(2);
+            }
+            board = randomBoard;
         }
     }
+
+    /**
+     * Colorpickers for cellColor, Background color and the Gridcolor
+     * @author Momcilo Delic - s315282
+     */
+    public void cellColorPicker(){
+        cellColor.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                draw();
+            }
+        });
+    }
+
+    public void backgroundColorPicker(){
+        backgroundColor.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                draw();
+            }
+        });
+    }
+
+    public void gridColorPicker(){
+        gridColor.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+                draw();
+            }
+        });
+    }
+
+    /**
+     * Draw grid method. The grid turns of if the size of the board
+     * is too big. (Because the grid looks really bad and its basically a background)
+     *
+     * @author Momcilo Delic - s315282
+     */
+    public void drawGrid(){
+//        if(setCellSize > 3) {
+            for(double i=0; i< board.length + 1; i++){
+                gc.setStroke(gridColor.getValue());
+                gc.strokeLine(0, i*cellSize, width *cellSize, i*cellSize);
+            }
+
+            for(double j=0; j < board[0].length + 1; j++){
+                gc.setStroke(gridColor.getValue());
+                gc.strokeLine(j*cellSize, 0, j*cellSize, height *cellSize);
+            }
+//        gridOff.setText("Grid On");
+//    } else {
+//        gridOff.setText("Grid Off");
+//    }
+    }
+
+    public void patternUp(){
+            byte[][] testBoard = new byte[getHeight()][getWidth()];
+
+            for (int x = 0; x < getHeight(); x++) {
+                for (int y = 0; y < getWidth(); y++) {
+                    if (getLive(y, x) == 1) testBoard[x - movedistance][y] = 1;
+                }
+            }
+            board = testBoard;
+            setgameBoard(testBoard);
+            draw();
+    }
+
+    public void patternDown(){
+            byte[][] testBoard = new byte[getHeight()][getWidth()];
+
+            for (int x = 0; x < getHeight(); x++) {
+                for (int y = 0; y < getWidth(); y++) {
+                    if (getLive(y, x) == 1) testBoard[x + movedistance][y] = 1;
+                }
+            }
+            board = testBoard;
+            setgameBoard(testBoard);
+            draw();
+
+    }
+
+    public void patternLeft(){
+            byte[][] testBoard = new byte[getHeight()][getWidth()];
+
+            for (int x = 0; x < getHeight() - movedistance; x++) {
+                for (int y = 0; y < getWidth(); y++) {
+                    if (getLive(y, x) == 1) testBoard[x][y - movedistance] = 1;
+                }
+            }
+            board = testBoard;
+            setgameBoard(testBoard);
+            draw();
+
+    }
+
+    public void patternRight(){
+            byte[][] testBoard = new byte[getHeight()][getWidth()];
+
+            for (int x = 0; x < getHeight(); x++) {
+                for (int y = 0; y < getWidth(); y++){
+                    if (getLive(y, x) == 1) testBoard[x][y + movedistance] = 1;
+                }
+            }
+            board = testBoard;
+            setgameBoard(testBoard);
+            draw();
+
+    }
+
 
 
     // Setters
@@ -258,14 +307,8 @@ public class Board {
     public void setBackgroundColor(ColorPicker backgroundColor){
         this.backgroundColor = backgroundColor;
     }
-    public void setGridOff(Label gridOff){
-        this.gridOff = gridOff;
-    }
-    public void cellSize(double Size){
+    public void setCellSize(double Size){
         this.cellSize = Size;
-    }
-    public void setGrid(CheckBox setGrid){
-        this.setGrid = setGrid;
     }
 
     // Getters
@@ -274,12 +317,6 @@ public class Board {
     }
     public byte[][] getBoard(){
         return board;
-    }
-    public int getTheHeight(){
-        return theHeight;
-    }
-    public int getTheWidth(){
-        return theWidth;
     }
 }
 

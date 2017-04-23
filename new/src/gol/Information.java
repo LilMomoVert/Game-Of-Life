@@ -41,4 +41,13 @@ public class Information {
         out.showAndWait();
     }
 
+    public void Ops(){
+        Alert out = new Alert(Alert.AlertType.INFORMATION);
+        out.setTitle("ERROR");
+        out.setHeaderText("Feil");
+        out.setContentText("Det har skjedd noe feil!");
+        out.getDialogPane().setPrefSize(320, 220);
+        out.showAndWait();
+    }
+
 }
