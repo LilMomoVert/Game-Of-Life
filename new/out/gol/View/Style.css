@@ -1,0 +1,57 @@
+.root {
+-fx-background-color: #FFFFFF;
+}
+
+.button{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+    -fx-font-weight: 100;
+    -fx-border-radius: 4;
+    -fx-border-color: black;
+    -fx-font-size: 20px;
+}
+
+#arrow1:hover{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+}
+
+#arrow2:hover{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+}
+
+#arrow3:hover{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+}
+
+#arrow4:hover{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+}
+
+.color-picker{
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+    -fx-border-radius: 4;
+    -fx-border-color: black;
+}
+
+.button:hover{
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+}
+
+.color-picker:hover{
+    -fx-border-color: gray;
+    -fx-text-fill: white;
+    -fx-border-radius: 4;
+}

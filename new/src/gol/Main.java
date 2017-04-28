@@ -21,11 +21,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("gol.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("View/gol.fxml"));
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("img/monster.png"));
 
-        primaryStage.setTitle("Game Of Life - GoL");
+        primaryStage.setTitle("  Game Of Life - GoL");
         primaryStage.setScene(new Scene(root, 1220, 850));
         primaryStage.show();
 

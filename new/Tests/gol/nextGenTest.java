@@ -1,9 +1,8 @@
 package gol;
 
+import gol.Model.Board.Board;
 import javafx.scene.canvas.GraphicsContext;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by Kani Boyka on 4/4/2017.
