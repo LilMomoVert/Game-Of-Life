@@ -1,5 +1,7 @@
 package gol.Controller;
 
+import gol.Model.Board.Board;
+import gol.Model.FileManager.Decoders.RLEDecoder;
 import gol.Model.FileManager.FileHandler;
 import gol.View.Information;
 import gol.Model.FileManager.Decoders.LifeDecoder;
@@ -13,7 +15,6 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -46,11 +47,12 @@ public class Controller implements Initializable {
     @FXML public Button                 playStop;
     @FXML public Button                 patternUp;
     @FXML public Slider                 speedSlider;
-    @FXML public Slider                 sizeSlider;
     @FXML public ColorPicker            cellColor;
     @FXML public ColorPicker            backgroundColor;
     @FXML public ColorPicker            gridColor;
-
+    @FXML public CheckBox               checkcircle;
+    @FXML public RadioButton            staticButton;
+    @FXML public RadioButton            dynamicButton;
     //=========================================================================//
     //                             Variables                                   //
     //=========================================================================//
@@ -66,38 +68,37 @@ public class Controller implements Initializable {
     public Canvas                      theCanvas;
     public Scene                       scene;
     public GraphicsContext             gc;
-    public CheckBox                    momo;
     protected static List<String>      txtStringList;
-    private int canvasDisplacedY;
-    private int canvasDisplacedX;
+    private int                        canvasDisplacedY;
+    private int                        canvasDisplacedX;
+    private boolean                    circle = false;
 
 
     //=========================================================================//
     //                             References                                  //
     //=========================================================================//
-    Information info;
-    FileHandler handler;
+    Information                        info;
+    FileHandler                        handler;
     InterfaceBoard                     gameBoard;
-    DynamicBoard                       dynboard;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        cellSize = 21.5;
+        cellSize = 15;
+
         gc = theCanvas.getGraphicsContext2D();
 
         info = new Information();
         handler = new FileHandler();
-        momo();
-        
+
+        dynamicBoard();
+
         canvasDisplacedX = 0;
         canvasDisplacedY = 0;
 
         backgroundColor.setValue(WHITE);
         gridColor.setValue(BLACK);
         cellColor.setValue(RED);
-
-        sizeSlider.setValue(24);
 
         gameBoard.setCellColor(cellColor);
         gameBoard.setGridColor(gridColor);
@@ -106,7 +107,6 @@ public class Controller implements Initializable {
         gameBoard.cellColorPicker();
         gameBoard.backgroundColorPicker();
         gameBoard.gridColorPicker();
-        sizeSlider();
         speedSlider();
 
         // Set GraphicsContexts
@@ -117,25 +117,50 @@ public class Controller implements Initializable {
         gameBoard.draw();
     }
 
-    public void momo(){
-            gameBoard = new DynamicBoard(gc, cellSize, 33, 44);
+    public void checkcircle(){
+        if(checkcircle.isSelected()){
+            circle = false;
+        } else {
+            circle = true;
+        }
+        gameBoard.setCircle(circle);
     }
 
-    // Size listener
-    public void sizeSlider(){
-        sizeSlider.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                gc.setFill(Color.WHITE);
-                gc.fillRect(0, 0, theCanvas.getWidth(), theCanvas.getHeight());
-                cellSize = sizeSlider.getValue();
-                gameBoard.setCellSize(cellSize);
-                sizeSlider.setMin(1); //testing
-                sizeSlider.setMax(100);
-                gameBoard.draw();
-                System.out.println(cellSize);
-            }
-        });
+    public void changeStat() {
+        if (!staticButton.isSelected()){
+            staticButton.setSelected(true);
+        }
+        else{
+            dynamicButton.setSelected(false);
+            staticBoard();
+        }
+    }
+
+    public void changeDyn() {
+        if (!dynamicButton.isSelected()){
+            dynamicButton.setSelected(true);
+        }
+        else{
+            staticButton.setSelected(false);
+            dynamicBoard();
+        }
+    }
+
+    @FXML
+    void staticBoard(){
+
+        gameBoard = new Board(gc,cellSize, 45, 60);
+
+    }
+
+    @FXML
+    void dynamicBoard(){
+        gameBoard = new DynamicBoard(gc,cellSize, 45, 60);
+
+    }
+
+    public void momo(){
+            gameBoard = new DynamicBoard(gc, cellSize, 50, 70);
     }
 
     // Speed listener
@@ -144,21 +169,19 @@ public class Controller implements Initializable {
             @Override
             public void invalidated(Observable observable) {
                 setSpeed(speedSlider.getValue());
+                speedSlider.setMin(1);
                 //System.out.println(speedSlider.getValue());
             }
         });
     }
 
     public void scrollHandler(ScrollEvent e) {
-        double zoom = 1.5;
+
+        double factor = 1.5;
 
         if (e.getDeltaY() <= 0) {
-            zoom = 1 / zoom;
+            factor = 1 / factor;
         }
-        zoom(zoom, e.getSceneX(), e.getSceneY());
-    }
-
-    public void zoom(double factor, double x, double y) {
 
         double scale = theCanvas.getScaleX();
         double newScale = scale * factor;
@@ -192,7 +215,7 @@ public class Controller implements Initializable {
      * Duration is set to 200 millis
      */
     public Timeline tl;{
-        tl = new Timeline(new KeyFrame(Duration.millis(200), event -> {;
+        tl = new Timeline(new KeyFrame(Duration.millis(300), event -> {;
             nextGen();
             tl.stop();
             tl.setRate(Math.abs(tl.getRate()));
@@ -240,47 +263,15 @@ public class Controller implements Initializable {
     }
 
     public void MouseDraw(MouseEvent event) {
-            movePosition(offsetX - (int) event.getX(), offsetY - (int) event.getY());
-            offsetX = (int) event.getX();
-            offsetY = (int) event.getY();
-            System.out.println(offsetX);
+//            movePosition(offsetX - (int) event.getX(), offsetY - (int) event.getY());
+//            offsetX = (int) event.getX();
+//            offsetY = (int) event.getY();
+//            System.out.println(offsetX);
 
-//        if(event.isControlDown()) {
-//            try {
-//                int x = (int) (event.getX() / cellSize);
-//                int y = (int) (event.getY() / cellSize);
-//
-//                if (gameBoard.getLive(y, x) == 1) {
-//                    gameBoard.setLive(y ,x, (byte) 0);
-//                }
-//                gameBoard.draw();
-//            } catch (IndexOutOfBoundsException ioeb){
-//                info.AOBCanvas();
-//            }
-//        } else {
-//            try {
-//                int x = (int) (event.getX() / cellSize);
-//                int y = (int) (event.getY() / cellSize);
-//
-//                if (gameBoard.getLive(y, x) == 0) {
-//                    gameBoard.setLive(y, x, (byte) 1);
-//                }
-//                gameBoard.draw();
-//            } catch (IndexOutOfBoundsException ioeb) {
-//                info.AOBCanvas();
-//            }
-//        }
-    }
-
-    public void Instructions(){
-        info.instructions();
-    }
-
-    public void MouseClick(MouseEvent event) {
-        if(event.isControlDown()){
+        if(event.isControlDown()) {
             try {
-                int x = (int) (event.getX() / cellSize);
-                int y = (int) (event.getY() / cellSize);
+                int x = (int) (event.getX() / gameBoard.getCellSize());
+                int y = (int) (event.getY() / gameBoard.getCellSize());
 
                 if (gameBoard.getLive(y, x) == 1) {
                     gameBoard.setLive(y ,x, (byte) 0);
@@ -291,8 +282,40 @@ public class Controller implements Initializable {
             }
         } else {
             try {
-                int x = (int) (event.getX() / cellSize);
-                int y = (int) (event.getY() / cellSize);
+                int x = (int) (event.getX() / gameBoard.getCellSize());
+                int y = (int) (event.getY() / gameBoard.getCellSize());
+
+                if (gameBoard.getLive(y, x) == 0) {
+                    gameBoard.setLive(y, x, (byte) 1);
+                }
+                gameBoard.draw();
+            } catch (IndexOutOfBoundsException ioeb) {
+                info.AOBCanvas();
+            }
+        }
+    }
+
+    public void Instructions(){
+        info.instructions();
+    }
+
+    public void MouseClick(MouseEvent event) {
+        if(event.isControlDown()){
+            try {
+                int x = (int) (event.getX() / gameBoard.getCellSize());
+                int y = (int) (event.getY() / gameBoard.getCellSize());
+
+                if (gameBoard.getLive(y, x) == 1) {
+                    gameBoard.setLive(y ,x, (byte) 0);
+                }
+                gameBoard.draw();
+            } catch (IndexOutOfBoundsException ioeb){
+                info.AOBCanvas();
+            }
+        } else {
+            try {
+                int x = (int) (event.getX() / gameBoard.getCellSize());
+                int y = (int) (event.getY() / gameBoard.getCellSize());
 
                 if (gameBoard.getLive(y, x) == 0) {
                     gameBoard.setLive(y ,x, (byte) 1);
@@ -351,7 +374,7 @@ public class Controller implements Initializable {
     }
 
     // TODO: Må flyttes til FileHandler klassen
-    public static byte[][] Moki() throws IOException {
+    public void fileChooser() throws IOException {
 
         FileChooser patternChooser = new FileChooser();
         patternChooser.setTitle("Velg fil");
@@ -362,33 +385,40 @@ public class Controller implements Initializable {
                 new FileChooser.ExtensionFilter("Plain Text", "*.cells"));
         //ByteArrayInputStream inputStream = new ByteArrayInputStream();
 
-        File test = patternChooser.showOpenDialog(new Stage());
-        if(test != null){
-            txtStringList = readLinesFromFile(test);
-            if(test.toString().endsWith(".rle")) {
-                // return RleParser.readFile(file);
-            }
-            else if(test.toString().endsWith(".cells")){
-                return LifeDecoder.parsePlainText();
-            }
+        File selectedFile = patternChooser.showOpenDialog(new Stage());
+//        if(test != null){
+//            txtStringList = readLinesFromFile(test);
+//            if(test.toString().endsWith(".rle")) {
+//                // return RleParser.readFile(file);
+//            }
+//            else if(test.toString().endsWith(".cells")){
+//                return LifeDecoder.parsePlainText();
+//            }
+//
+//        }
+//        return null;
 
+//        File selectedFile = patternChooser.showOpenDialog();
+        if (selectedFile != null) {
+            System.out.println("Controller.fileOpener:" + selectedFile);
+
+            RLEDecoder parser = new RLEDecoder();
+            try {
+                parser.readGameBoardFromDisk(selectedFile);
+                if (true) {
+                     gameBoard.setgameBoard(parser.getBoard());
+                }
+
+            } catch (IOException e) { //spytter ut eventuelle feilmedling
+                System.out.println(e.getMessage());
+            }
+            System.out.println("Loaded File " + selectedFile);
+            gameBoard.draw();
         }
-        return null;
     }
 
     private static List<String> readLinesFromFile(File file) throws IOException {
         return Files.readAllLines(file.toPath());
-    }
-
-    public void fileChooser() throws IOException {
-        try{
-            gameBoard.setgameBoard(Moki());
-            gc.setFill(Color.WHITE);
-            gc.fillRect(0, 0, theCanvas.getWidth(), theCanvas.getHeight());
-            gameBoard.draw();
-        }catch (IOException ioe){
-            info.Ops();
-        }
     }
 
     /**

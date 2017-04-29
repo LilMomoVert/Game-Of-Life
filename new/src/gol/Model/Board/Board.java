@@ -4,7 +4,9 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Slider;
 
 import java.util.Random;
 
@@ -30,6 +32,7 @@ public class Board implements InterfaceBoard {
     private byte[][]                    board;
     private byte[][]                    randomBoard;
     private GraphicsContext             gc;
+    public boolean                      circle = true;
 
 
 
@@ -44,25 +47,6 @@ public class Board implements InterfaceBoard {
         this.height = height;
         this.width = width;
         this.board = new byte[height][width];
-    }
-
-    public void setLive(int y, int x, byte state){
-        board[y][x] = state;
-    }
-
-    @Override
-    public int getHeight() {
-        return board.length;
-    }
-
-    @Override
-    public int getWidth() {
-        return board[0].length;
-    }
-
-    @Override
-    public byte getLive(int x, int y) {
-        return board[x][y];
     }
 
     /**
@@ -91,10 +75,14 @@ public class Board implements InterfaceBoard {
         gc.setFill(cellColor.getValue());
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j] == 1)
-                    gc.fillOval(cellSize * j, cellSize * i, cellSize, cellSize);
+                if (getLive(i,j) == 1)
+                    if(circle == true) {
+                        gc.fillRect(cellSize * j, cellSize * i, cellSize, cellSize);
+                    } else {
+                        gc.fillOval(cellSize * j, cellSize * i, cellSize, cellSize);
+                    }
+                }
             }
-        }
         drawGrid();
     }
 
@@ -129,26 +117,46 @@ public class Board implements InterfaceBoard {
             }
         }
         board = nextBoard;
-        draw();
+        draw(); // If nextGeneration is being tested, comment out Draw method
     }
 
     private int countNeighbours(int x, int y) {
-        int livingNeighbours = 0;
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                if (j == 0 && i == 0) {
-                    continue;
-                }
-                try {
-                    if (board[x + i][y + j] == 1) {
-                        livingNeighbours++;
-                    }
-                } catch (ArrayIndexOutOfBoundsException e) {
-                }
-            }
+            int cNeighbours = 0;
+            // Check cell on the right.
+            if (x != getHeight() - 1)
+                if (getLive(x + 1, y) == 1)
+                    cNeighbours++;
+
+            if (x != getHeight() - 1 && y != getWidth() - 1)
+                if (getLive(x + 1, y + 1) == 1)
+                    cNeighbours++;
+
+            if (y != getWidth() - 1)
+                if (getLive(x, y + 1) == 1)
+                    cNeighbours++;
+
+            if (x != 0 && y != getWidth() - 1)
+                if (getLive(x - 1, y + 1)== 1)
+                    cNeighbours++;
+
+            if (x != 0)
+                if (getLive(x - 1, y) == 1)
+                    cNeighbours++;
+
+            if (x != 0 && y != 0)
+                if (getLive(x - 1,y - 1) == 1)
+                    cNeighbours++;
+
+            if (y != 0)
+                if (getLive(x, y - 1) == 1)
+                    cNeighbours++;
+
+            if (x != getHeight() - 1 && y != 0)
+                if (getLive(x + 1, y -1) == 1)
+                    cNeighbours++;
+
+            return cNeighbours;
         }
-        return livingNeighbours;
-    }
 
     /**
      * Clears the board, creates a new one
@@ -289,6 +297,16 @@ public class Board implements InterfaceBoard {
 
     }
 
+    public String toString() {
+        StringBuffer stringBuffer = new StringBuffer();
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board[i].length; j++){
+                stringBuffer.append(board[i][j]);
+            }
+        }
+        return stringBuffer.toString();
+    }
+
     // Setters
     public void setCellColor(ColorPicker cellColor){
         this.cellColor = cellColor;
@@ -303,12 +321,39 @@ public class Board implements InterfaceBoard {
         this.cellSize = Size;
     }
 
-    // Getters
-    public double getCellSize(){
-        return this.cellSize;
+    @Override
+    public void setCircle(boolean circle) {
+        this.circle = circle;
     }
+    public void setLive(int y, int x, byte state){
+        board[y][x] = state;
+    }
+
+
+
+    // Getters
+    @Override
+    public double getCellSize() {
+        return cellSize;
+    }
+
     public byte[][] getBoard(){
         return board;
+    }
+
+    @Override
+    public int getHeight() {
+        return board.length;
+    }
+
+    @Override
+    public int getWidth() {
+        return board[0].length;
+    }
+
+    @Override
+    public byte getLive(int x, int y) {
+        return board[x][y];
     }
 }
 

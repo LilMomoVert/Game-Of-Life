@@ -49,4 +49,8 @@ public interface InterfaceBoard {
     void patternLeft();
 
     void patternRight();
+
+    void setCircle(boolean circle);
+
+    double getCellSize();
 }

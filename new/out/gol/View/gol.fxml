@@ -22,7 +22,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <HBox prefHeight="850.0" prefWidth="1223.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gol.Controller.Controller">
    <children>
       <AnchorPane id="background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1220.0" stylesheets="@Style.css">
@@ -77,9 +76,8 @@
               </ImageView>
               <Button fx:id="exitGame" layoutX="1066.0" layoutY="768.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="32.0" prefWidth="88.0" styleClass="closebutton" text="Close" />
               <Button fx:id="oneStep" layoutX="362.0" layoutY="769.0" mnemonicParsing="false" onAction="#oneStep" prefHeight="39.0" prefWidth="178.0" text="One Generation" />
-              <Slider fx:id="speedSlider" layoutX="1001.0" layoutY="476.0" prefHeight="14.0" prefWidth="169.0" />
-              <Label layoutX="1012.0" layoutY="455.0" text="Speed" />
-              <Label layoutX="1020.0" layoutY="517.0" text="Size" />
+              <Slider fx:id="speedSlider" layoutX="1001.0" layoutY="515.0" prefHeight="14.0" prefWidth="169.0" />
+              <Label layoutX="1011.0" layoutY="483.0" text="Speed" />
               <ColorPicker fx:id="backgroundColor" layoutX="1051.0" layoutY="633.0" prefHeight="32.0" prefWidth="127.0" />
               <ColorPicker fx:id="gridColor" layoutX="1051.0" layoutY="578.0" prefHeight="32.0" prefWidth="127.0" />
               <Label layoutX="964.0" layoutY="639.0" text="Background:">
@@ -107,19 +105,16 @@
                       <Font size="20.0" />
                   </font>
               </Label>
-              <Slider fx:id="sizeSlider" layoutX="1002.0" layoutY="538.0" prefHeight="14.0" prefWidth="169.0" />
               <Separator layoutX="949.0" layoutY="374.0" prefHeight="4.0" prefWidth="275.0" />
             <Button layoutX="799.0" layoutY="768.0" mnemonicParsing="false" onAction="#fileChooser" prefHeight="39.0" prefWidth="217.0" text="Load your Pattern" />
-            <Label layoutX="986.0" layoutY="586.0" text="Grid:">
-               <font>
-                  <Font name="Arial" size="14.0" />
-               </font>
-            </Label>
             <Button id="arrow2" fx:id="patternUp" layoutX="640.0" layoutY="749.0" mnemonicParsing="false" onAction="#patternUp" prefHeight="31.0" prefWidth="52.0" text="↑" />
             <Button id="arrow4" layoutX="640.0" layoutY="792.0" mnemonicParsing="false" onAction="#patternDown" prefHeight="31.0" prefWidth="52.0" text="↓" />
             <Button id="arrow1" layoutX="576.0" layoutY="768.0" mnemonicParsing="false" onAction="#patternLeft" prefHeight="31.0" prefWidth="52.0" text="←" />
             <Button id="arrow3" layoutX="702.0" layoutY="768.0" mnemonicParsing="false" onAction="#patternRight" prefHeight="31.0" prefWidth="52.0" text="→" />
             <Button layoutX="1016.0" layoutY="310.0" mnemonicParsing="false" onAction="#Instructions" prefHeight="30.0" prefWidth="139.0" text="Instructions" />
+              <CheckBox fx:id="checkcircle" layoutX="1005.0" layoutY="448.0" mnemonicParsing="false" onAction="#checkcircle" text="Circle shape cells" />
+            <RadioButton fx:id="staticButton" layoutX="964.0" layoutY="300.0" mnemonicParsing="false" onAction="#changeStat" text="s" />
+            <RadioButton fx:id="dynamicButton" layoutX="969.0" layoutY="264.0" mnemonicParsing="false" onAction="#changeDyn" text="d" />
           </children>
       </AnchorPane>
       <HBox prefHeight="850.0" prefWidth="1.0" />

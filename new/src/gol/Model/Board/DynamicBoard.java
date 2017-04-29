@@ -5,6 +5,7 @@ import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -36,6 +37,8 @@ public class DynamicBoard implements InterfaceBoard {
     private ArrayList<ArrayList<Byte>>      lala;
     private ArrayList<ArrayList<Byte>>      testBoard;
     private GraphicsContext                 gc;
+    public double cellHeight, cellWidth;
+    public boolean circle = true;
 
 
 
@@ -69,6 +72,48 @@ public class DynamicBoard implements InterfaceBoard {
     public byte getLive(int x, int y) {
         return board.get(x).get(y);
     }
+
+    public void setCircle(boolean circle){
+        this.circle = circle;
+    }
+
+    public void draw(int x, int y) {
+        cellHeight = getCanvasHeight() / x;
+        cellWidth = getCanvasWidth() / y;
+        if (cellWidth < cellHeight) {
+            cellSize = cellWidth;
+        } else {
+            cellSize = cellHeight;
+        }
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
+                if (getLive(i, j) == 1) {
+                    if(circle == true) {
+                        gc.fillRect(cellSize * j, cellSize * i, cellSize, cellSize);
+                    } else {
+                        gc.fillOval(cellSize * j, cellSize * i, cellSize, cellSize);
+                    }
+                }
+            }
+        }
+    }
+
+    public double getCanvasHeight(){
+        return (double) gc.getCanvas().widthProperty().intValue();
+    }
+
+    public double getCanvasWidth(){
+        return (double) gc.getCanvas().heightProperty().intValue();
+    }
+    public void draw() {
+        gc.clearRect(0, 0, getCanvasHeight(), getCanvasWidth());
+        gc.setFill(backgroundColor.getValue());
+        gc.fillRect(0, 0, getCanvasHeight(), getCanvasWidth());
+        gc.setFill(cellColor.getValue());
+        draw(getHeight(), getWidth());
+        drawGrid();
+    }
+
 
     @Override
     public void patternUp() {
@@ -183,19 +228,6 @@ public class DynamicBoard implements InterfaceBoard {
         }
     }
 
-    public void draw() {
-        gc.setFill(backgroundColor.getValue());
-        gc.fillRect(0, 0, height *cellSize + 2, width *cellSize + 2);
-        gc.setFill(cellColor.getValue());
-        for (int i = 0; i < board.size(); i++) {
-            for (int j = 0; j < board.get(i).size(); j++) {
-                if (board.get(i).get(j) == 1)
-                    gc.fillOval(cellSize * j, cellSize * i, cellSize, cellSize);
-            }
-        }
-        drawGrid();
-    }
-
     @Override
     public void nextGeneration() {
         addLeftRight();
@@ -226,6 +258,16 @@ public class DynamicBoard implements InterfaceBoard {
         }
         board = nextBoard;
         draw();
+    }
+
+    public String toString() {
+        StringBuffer output = new StringBuffer();
+        for(int i = 0; i < board.size(); i++){
+            for(int j = 0; j < board.get(i).size(); j++){
+                output.append(board.get(i).get(j));
+            }
+        }
+        return output.toString();
     }
 
     private int countNeighbours(int x, int y) {
@@ -267,6 +309,7 @@ public class DynamicBoard implements InterfaceBoard {
     @Override
     public void ClearButton(){
         board.clear();
+
         for (int x = 0; x < width; x++) {
             board.add(new ArrayList<>());
             for(int y = 0; y < height; y++){
@@ -276,7 +319,7 @@ public class DynamicBoard implements InterfaceBoard {
     }
 
     private void drawGrid(){
-        if (cellSize > 2) {
+        if (cellSize > 3) {
             for (double i = 0; i < board.size() + 1; i++) {
                 gc.setStroke(gridColor.getValue());
                 gc.strokeLine(0, i * cellSize, board.get(0).size() * cellSize, i * cellSize);
@@ -340,7 +383,6 @@ public class DynamicBoard implements InterfaceBoard {
 
     }
 
-
     /**
      * Using valueProperty listeners to get
      * Cell color, Grid color and
@@ -392,6 +434,10 @@ public class DynamicBoard implements InterfaceBoard {
     @Override
     public void setCellSize(double Size) {
         this.cellSize = Size;
+    }
+
+    public double getCellSize(){
+        return cellSize;
     }
 
 }
