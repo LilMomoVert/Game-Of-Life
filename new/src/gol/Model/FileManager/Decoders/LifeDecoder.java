@@ -2,6 +2,11 @@ package gol.Model.FileManager.Decoders;
 
 import gol.Controller.Controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
+
 /**
  * Created by Momcilo Delic on 4/20/2017.
  */
@@ -25,20 +30,24 @@ public class LifeDecoder extends Controller {
             }
         }
 
-        byteArray = new byte[patternHeight + 50][patternWidth + 50];
+        LifeBoard = new byte[patternHeight + 50][patternWidth + 50];
 
         // runs through the text and generates pattern
         for(int y = 0; y < patternHeight; y++){
             for(int x = 0; x < txtStringList.get(y).length(); x++){
 
                 if(txtStringList.get(y).charAt(x) == 'O'){
-                    byteArray[y][x] = (byte)1;
+                    LifeBoard[y][x] = (byte)1;
                 }
                 else{
-                    byteArray[y][x] = (byte)0;
+                    LifeBoard[y][x] = (byte)0;
                 }
             }
         }
-        return byteArray;
+        return LifeBoard;
+    }
+
+    private static List<String> readLinesFromFile(File file) throws IOException {
+        return Files.readAllLines(file.toPath());
     }
 }

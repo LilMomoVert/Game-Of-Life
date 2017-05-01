@@ -122,7 +122,7 @@ public class Board implements InterfaceBoard {
 
     private int countNeighbours(int x, int y) {
             int cNeighbours = 0;
-            // Check cell on the right.
+
             if (x != getHeight() - 1)
                 if (getLive(x + 1, y) == 1)
                     cNeighbours++;
@@ -269,6 +269,11 @@ public class Board implements InterfaceBoard {
 
     }
 
+    @Override
+    public void epilepsyAttack() {
+
+    }
+
     public void patternLeft(){
             byte[][] testBoard = new byte[getHeight()][getWidth()];
 
@@ -294,6 +299,11 @@ public class Board implements InterfaceBoard {
             board = testBoard;
             setgameBoard(testBoard);
             draw();
+
+    }
+
+    @Override
+    public void CoolRandomRuleShapeWithAnAwesomeName() {
 
     }
 
@@ -325,6 +335,12 @@ public class Board implements InterfaceBoard {
     public void setCircle(boolean circle) {
         this.circle = circle;
     }
+
+    @Override
+    public void setDynamicSize(boolean dynamicSize) {
+
+    }
+
     public void setLive(int y, int x, byte state){
         board[y][x] = state;
     }

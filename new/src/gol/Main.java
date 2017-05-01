@@ -24,9 +24,12 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("View/gol.fxml"));
         Parent root = loader.load();
         primaryStage.getIcons().add(new Image("img/monster.png"));
-
         primaryStage.setTitle("  Game Of Life - GoL");
         primaryStage.setScene(new Scene(root, 1220, 850));
+        primaryStage.setMaxWidth(1220);
+        primaryStage.setMaxHeight(900);
+        primaryStage.setMinWidth(1200);
+        primaryStage.setMinHeight(870);
         primaryStage.show();
 
     }

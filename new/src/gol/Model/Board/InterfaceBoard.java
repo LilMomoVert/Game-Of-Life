@@ -46,11 +46,17 @@ public interface InterfaceBoard {
 
     void patternDown();
 
+    void epilepsyAttack();
+
     void patternLeft();
 
     void patternRight();
 
+    void CoolRandomRuleShapeWithAnAwesomeName();
+
     void setCircle(boolean circle);
+
+    void setDynamicSize(boolean dynamicSize);
 
     double getCellSize();
 }
