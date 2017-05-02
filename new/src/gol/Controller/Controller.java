@@ -2,7 +2,6 @@ package gol.Controller;
 
 import gol.Model.Board.Board;
 import gol.Model.FileManager.Decoders.RLEDecoder;
-import gol.Model.FileManager.FileHandler;
 import gol.View.Information;
 import gol.Model.Board.DynamicBoard;
 import gol.Model.Board.InterfaceBoard;
@@ -14,10 +13,10 @@ import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.paint.Color;
@@ -28,7 +27,6 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.util.*;
 
 import static javafx.scene.paint.Color.*;
@@ -70,7 +68,6 @@ public class Controller implements Initializable {
     //                             References                                  //
     //=========================================================================//
     private Information                         info;
-    private FileHandler                         handler;
     private InterfaceBoard                      gameBoard;
 
     @Override
@@ -83,11 +80,13 @@ public class Controller implements Initializable {
         gc.fillRect(0, 0, theCanvas.getWidth(), theCanvas.getHeight());
 
         info = new Information();
-        handler = new FileHandler();
-        dynamicSize.setSelected(true);
 
-        dynamicBoard();
+        gameBoard = new DynamicBoard(gc, cellSize, 45, 60);
 
+        initMethods();
+    }
+
+    public void initMethods(){
         backgroundColor.setValue(WHITE);
         gridColor.setValue(BLACK);
         cellColor.setValue(RED);
@@ -102,6 +101,8 @@ public class Controller implements Initializable {
         gameBoard.backgroundColorPicker();
         gameBoard.gridColorPicker();
         speedSlider();
+
+        theCanvas.addEventFilter(MouseEvent.ANY, (e) -> theCanvas.requestFocus());
         rulecell.setValue("Normal Rules");
         rulecell.getItems().setAll("Normal Rules", "Fast Growth", "Improvized Rule");
 
@@ -145,33 +146,59 @@ public class Controller implements Initializable {
         }
     }
 
+    public void PressKey(KeyEvent event){
+        switch (event.getCode()){
+            case A:
+                patternLeft();
+                gameBoard.draw();
+                break;
+            case S:
+                patternDown();
+                gameBoard.draw();
+                break;
+            case D:
+                patternRight();
+                gameBoard.draw();
+                break;
+            case W:
+                patternUp();
+                gameBoard.draw();
+                break;
+
+        }
+    }
+
 
     public void changeStat() {
+        gc.clearRect(0,0, theCanvas.getWidth(), theCanvas.getHeight());
         if (!staticButton.isSelected()){
             staticButton.setSelected(true);
         }
         else{
             dynamicButton.setSelected(false);
             staticBoard();
+            initMethods();
+            clearButton();
         }
     }
 
     public void changeDyn() {
+        gc.clearRect(0,0, gameBoard.getHeight(), gameBoard.getWidth());
         if (!dynamicButton.isSelected()){
             dynamicButton.setSelected(true);
         }
         else{
             staticButton.setSelected(false);
             dynamicBoard();
+            initMethods();
+            clearButton();
         }
     }
 
-    @FXML
     void staticBoard(){
-        gameBoard = new Board(gc,cellSize, 45, 60);
+        gameBoard = new Board(gc,cellSize, 47, 62);
     }
 
-    @FXML
     void dynamicBoard(){
         gameBoard = new DynamicBoard(gc,cellSize, 45, 60);
     }
@@ -212,7 +239,6 @@ public class Controller implements Initializable {
     }
 
     public void onScroll(ScrollEvent sEvent) {
-        if(sEvent.isControlDown()) {
             double zoomValue = 1.5;
 
             if (sEvent.getDeltaY() <= 0) {
@@ -226,7 +252,6 @@ public class Controller implements Initializable {
                 theCanvas.setScaleX(newScale);
                 theCanvas.setScaleY(newScale);
             }
-        }
     }
 
     /**
@@ -234,7 +259,7 @@ public class Controller implements Initializable {
      * Duration is set to 200 millis
      */
     public Timeline tl;{
-        tl = new Timeline(new KeyFrame(Duration.millis(200), event -> {;
+        tl = new Timeline(new KeyFrame(Duration.millis(200), event -> {
             nextGen();
             tl.stop();
             tl.setRate(Math.abs(tl.getRate()));
@@ -262,6 +287,7 @@ public class Controller implements Initializable {
                 int x = (int) (event.getX() / gameBoard.getCellSize());
                 int y = (int) (event.getY() / gameBoard.getCellSize());
 
+
                 if (gameBoard.getLive(y, x) == 1) {
                     gameBoard.setLive(y ,x, (byte) 0);
                 }
@@ -273,6 +299,7 @@ public class Controller implements Initializable {
             try {
                 int x = (int) (event.getX() / gameBoard.getCellSize());
                 int y = (int) (event.getY() / gameBoard.getCellSize());
+
 
                 if (gameBoard.getLive(y, x) == 0) {
                     gameBoard.setLive(y, x, (byte) 1);

@@ -58,7 +58,7 @@
               </MenuBar>
                     <AnchorPane layoutY="32.0" prefHeight="709.0" prefWidth="934.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="286.0" AnchorPane.topAnchor="32.0">
                         <children>
-                            <Canvas fx:id="theCanvas" height="707.0" onMouseClicked="#MouseClick" onMouseDragged="#MouseDraw" onScroll="#onScroll" width="934.0" />
+                            <Canvas fx:id="theCanvas" height="707.0" onKeyPressed="#PressKey" onMouseClicked="#MouseClick" onMouseDragged="#MouseDraw" onScroll="#onScroll" width="934.0" />
                         <Separator layoutY="705.0" prefHeight="4.0" prefWidth="940.0" />
                         </children>
                   </AnchorPane>
