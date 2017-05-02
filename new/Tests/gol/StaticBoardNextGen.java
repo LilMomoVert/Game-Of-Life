@@ -7,11 +7,11 @@ import org.junit.Test;
 /**
  * Created by Kani Boyka on 4/29/2017.
  */
-public class nextGeneration {
+public class StaticBoardNextGen {
 
-    public double       cellSize;
-    public Board staticBoard;
-    public GraphicsContext gc;
+    public double                cellSize;
+    public Board                 staticBoard;
+    public GraphicsContext       gc;
 
     @Test
     public void nextGeneration() throws Exception {

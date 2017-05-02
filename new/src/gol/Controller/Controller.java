@@ -1,7 +1,6 @@
 package gol.Controller;
 
 import gol.Model.Board.Board;
-import gol.Model.FileManager.Decoders.LifeDecoder;
 import gol.Model.FileManager.Decoders.RLEDecoder;
 import gol.Model.FileManager.FileHandler;
 import gol.View.Information;
@@ -26,9 +25,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -47,7 +44,7 @@ public class Controller implements Initializable {
     //=========================================================================//
     @FXML public Button                 oneStep;
     @FXML public Button                 playStop;
-    @FXML public Button                 patternUp;
+    @FXML public Slider                 sizeSlider;
     @FXML public Slider                 speedSlider;
     @FXML public ColorPicker            cellColor;
     @FXML public ColorPicker            backgroundColor;
@@ -57,31 +54,24 @@ public class Controller implements Initializable {
     @FXML public ComboBox               rulecell;
     @FXML public RadioButton            staticButton;
     @FXML public RadioButton            dynamicButton;
-    public Slider sizeSlider;
+    @FXML public Canvas                 theCanvas;
     //=========================================================================//
     //                             Variables                                   //
     //=========================================================================//
 
-    private double                     cellSize;
-    protected static int               patternHeight;
-    protected static int               patternWidth;
-    protected static final byte        patterStart = 0;
-    public byte[][]                    board;
-    protected static byte[][] LifeBoard;
-    public Canvas                      theCanvas;
-    public Scene                       scene;
-    public GraphicsContext             gc;
-    protected static List<String>      txtStringList;
-    private boolean                    circle = false;
-    private boolean                    dynamicsize = false;
+    private double                      cellSize;
+    public byte[][]                     board;
+    public GraphicsContext              gc;
+    private boolean                     circle = false;
+    private boolean                     dynamicsize = false;
 
 
     //=========================================================================//
     //                             References                                  //
     //=========================================================================//
-    Information                        info;
-    FileHandler                        handler;
-    InterfaceBoard                     gameBoard;
+    private Information                         info;
+    private FileHandler                         handler;
+    private InterfaceBoard                      gameBoard;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -105,7 +95,7 @@ public class Controller implements Initializable {
         gameBoard.setCellColor(cellColor);
         gameBoard.setGridColor(gridColor);
         gameBoard.setBackgroundColor(backgroundColor);
-
+        sizeSlider.setValue(17);
         sizeSlider();
 
         gameBoard.cellColorPicker();
@@ -113,7 +103,7 @@ public class Controller implements Initializable {
         gameBoard.gridColorPicker();
         speedSlider();
         rulecell.setValue("Normal Rules");
-        rulecell.getItems().setAll("Normal Rules", "Fast Growth", "EPILEPSY ATTACK!");
+        rulecell.getItems().setAll("Normal Rules", "Fast Growth", "Improvized Rule");
 
         gameBoard.draw();
     }
@@ -128,6 +118,7 @@ public class Controller implements Initializable {
     }
 
     public void dynamicSize(){
+
         if(dynamicSize.isSelected()){
             dynamicsize = true;
             dynamicSize.setText("Dynamic Size ON");
@@ -136,9 +127,6 @@ public class Controller implements Initializable {
             dynamicSize.setText("Dynamic Size OFF");
         }
         gameBoard.setDynamicSize(dynamicsize);
-
-        if(dynamicSize.isSelected() == false){
-        }
     }
 
     public void nextGenRule() {
@@ -150,8 +138,8 @@ public class Controller implements Initializable {
                 case "Fast Growth":
                     gameBoard.CoolRandomRuleShapeWithAnAwesomeName();
                     break;
-                case "EPILEPSY ATTACK!":
-                    gameBoard.epilepsyAttack();
+                case "Improvized Rule":
+                    gameBoard.ImprovizedRule();
                     break;
             }
         }
@@ -214,7 +202,8 @@ public class Controller implements Initializable {
                     gameBoard.setCellSize(sizeSlider.getValue());
                     gameBoard.setCellSize(cellSize);
                     cellSize = sizeSlider.getValue();
-                    sizeSlider.setMax(20);
+                    sizeSlider.setMin(1);
+                    sizeSlider.setMax(50);
                     gameBoard.draw();
                     System.out.println(cellSize);
                 }
@@ -373,49 +362,24 @@ public class Controller implements Initializable {
     }
 
     public void fileChooser() throws IOException {
-
+        RLEDecoder parser = new RLEDecoder();
         FileChooser patternChooser = new FileChooser();
-        patternChooser.setTitle("Velg fil");
-
-
+        patternChooser.setTitle("Choose your file");
         patternChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter(".RLE Extensions", "*.RLE"),
-                new FileChooser.ExtensionFilter("Plain Text", "*.cells"));
-        //ByteArrayInputStream inputStream = new ByteArrayInputStream();
+                new FileChooser.ExtensionFilter("RLE Files", "*.rle"));
 
         File selectedFile = patternChooser.showOpenDialog(new Stage());
-//        if(test != null){
-//            txtStringList = readLinesFromFile(test);
-//            if(test.toString().endsWith(".rle")) {
-//                // return RleParser.readFile(file);
-//            }
-//            else if(test.toString().endsWith(".cells")){
-//                return LifeDecoder.parsePlainText();
-//            }
-//
-//        }
-//        return null;
-
-//        File selectedFile = patternChooser.showOpenDialog();
         if (selectedFile != null) {
-            System.out.println("Controller.fileOpener:" + selectedFile);
 
-            RLEDecoder parser = new RLEDecoder();
             try {
-                readLinesFromFile(selectedFile);
-                gameBoard.setgameBoard(LifeDecoder.parsePlainText());
+                parser.readFile(selectedFile);
+                gameBoard.setgameBoard(parser.getBoard());
 
             } catch (IOException e) {
                 info.Ops();
             }
-            System.out.println("Loaded File " + selectedFile);
             gameBoard.draw();
         }
-    }
-
-
-    private static List<String> readLinesFromFile(File file) throws IOException {
-        return Files.readAllLines(file.toPath());
     }
 
     /**
@@ -437,7 +401,7 @@ public class Controller implements Initializable {
      */
     @FXML
     public void oneStep() {
-        //Who needs animation when you got fast fingers :)
+        //Who needs animation if you have fast fingers :)
         nextGen();
         gameBoard.draw();
     }

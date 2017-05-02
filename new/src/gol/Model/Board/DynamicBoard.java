@@ -111,6 +111,7 @@ public class DynamicBoard implements InterfaceBoard {
     public double getCanvasWidth(){
         return (double) gc.getCanvas().heightProperty().intValue();
     }
+
     public void draw() {
         gc.clearRect(0, 0, getCanvasHeight(), getCanvasWidth());
         gc.setFill(backgroundColor.getValue());
@@ -297,7 +298,7 @@ public class DynamicBoard implements InterfaceBoard {
     }
 
     @Override
-    public void epilepsyAttack() {
+    public void ImprovizedRule() {
         addLeftRight();
         addTopBottom();
 
@@ -311,13 +312,11 @@ public class DynamicBoard implements InterfaceBoard {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
 
-                if (countNeighbours(x, y) == 3) {
-                    nextBoard.get(x).set(y, (byte) 1);
-                } else if (getLive(x, y) == 1 && countNeighbours(x, y) == 2) {
-                    nextBoard.get(x).set(y, (byte) 1);
-                } else if (countNeighbours(x, y) > 3) {
+                if (countNeighbours(x, y) == 1) {
                     nextBoard.get(x).set(y, (byte) 0);
-                } else if (countNeighbours(x, y) < 2) {
+                } else if (countNeighbours(x, y) == 2) {
+                    nextBoard.get(x).set(y, (byte) 1);
+                } else if (countNeighbours(x, y) == 3) {
                     nextBoard.get(x).set(y, (byte) 1);
                 }
             }
@@ -328,13 +327,13 @@ public class DynamicBoard implements InterfaceBoard {
     }
 
     public String toString() {
-        StringBuffer output = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
         for(int i = 0; i < board.size(); i++){
             for(int j = 0; j < board.get(i).size(); j++){
-                output.append(board.get(i).get(j));
+                stringBuilder.append(board.get(i).get(j));
             }
         }
-        return output.toString();
+        return stringBuilder.toString();
     }
 
     private int countNeighbours(int x, int y) {

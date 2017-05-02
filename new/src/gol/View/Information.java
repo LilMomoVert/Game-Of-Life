@@ -18,10 +18,10 @@ public class Information {
 
     public void instructions(){
 
-        String message =
+        String gameinstructions =
                 "\n\n- Du kan tegne på brettet ved hjelp av venstre mus.\n\n" +
                 "- For å fjerne celler må du holde inne CTRL + Mousedrag/MouseClick\n\n" +
-                "- Play knappen for spillet til å kjøre, Stop stopper spillet (Genius) \n\n" +
+                "- Play knappen får spillet til å kjøre, Stop stopper spillet (Genius) \n\n" +
                 "- Du kan skifte fargen på cellene, gridden og bakgrunnen ved hjelp av colorpicker\n\n"+
                 "- Bruk slidere for å justere på hastigheten og størelsen\n\n" +
                         "- Clear funksjonen clearer brettet og Randomize generer randome celler\n\n" +
@@ -29,7 +29,7 @@ public class Information {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Hvordan spillet fungerer:");
-        alert.setContentText(message);
+        alert.setContentText(gameinstructions);
         alert.getDialogPane().setPrefSize(600, 600);
 
         alert.showAndWait();
@@ -83,11 +83,12 @@ public class Information {
 
     public void Error(){
         Alert out = new Alert(Alert.AlertType.INFORMATION);
-        out.setTitle("ERROR");
-        out.setHeaderText("Feil");
-        out.setContentText("Du kan ikke justere på størelsen når 'Dynamic Size' er på.");
+        out.setTitle("Info");
+        out.setHeaderText("Feil, les meldingen under!");
+        out.setContentText("Du kan ikke justere på size Slideren når 'Dynamic Size' er på. Slå av 'Dynamic Size' for å bruke slideren. ");
         out.getDialogPane().setPrefSize(320, 220);
         out.showAndWait();
     }
+
 
 }

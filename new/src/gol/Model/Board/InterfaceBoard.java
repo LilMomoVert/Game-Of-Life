@@ -46,7 +46,7 @@ public interface InterfaceBoard {
 
     void patternDown();
 
-    void epilepsyAttack();
+    void ImprovizedRule();
 
     void patternLeft();
 

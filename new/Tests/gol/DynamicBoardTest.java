@@ -16,22 +16,22 @@ public class DynamicBoardTest {
     public void nextGeneration() throws Exception {
         byte[][] board = {
                 { 0, 0, 0, 0, 0 },
-                { 0, 0, 1, 0, 0 },
-                { 0, 0, 1, 0, 0 },
-                { 0, 0, 1, 0, 0 },
+                { 0, 0, 0, 0, 1 },
+                { 0, 0, 0, 0, 1 },
+                { 0, 0, 0, 0, 1 },
                 { 0, 0, 0, 0, 0 },
         };
 
 
-        // the current board is 0000000100001000010000000
-        // next generation should be 0000000000011100000000000
+        // the current board is             0000000001000010000100000
+        // next generation should be        000000000000000111000000000000 because the board expands
 
         dynamicBoard = new DynamicBoard(gc, cellSize, 5,5);
 
         dynamicBoard.setgameBoard(board);
         dynamicBoard.nextGeneration();
 
-        org.junit.Assert.assertEquals("0000000000011100000000000", dynamicBoard.toString());
+        org.junit.Assert.assertEquals("000000000000000111000000000000", dynamicBoard.toString());
     }
 
 

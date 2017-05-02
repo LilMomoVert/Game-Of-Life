@@ -56,26 +56,25 @@
                             </Menu>
                   </menus>
               </MenuBar>
-                    <AnchorPane layoutY="32.0" prefHeight="662.0" prefWidth="942.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="272.0" AnchorPane.topAnchor="32.0">
+                    <AnchorPane layoutY="32.0" prefHeight="709.0" prefWidth="934.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="286.0" AnchorPane.topAnchor="32.0">
                         <children>
-                            <Canvas fx:id="theCanvas" height="707.0" onMouseClicked="#MouseClick" onMouseDragged="#MouseDraw" onScroll="#onScroll" width="948.0" />
-                        <Separator layoutX="945.0" orientation="VERTICAL" prefHeight="707.0" prefWidth="3.0" />
-                        <Separator layoutY="705.0" prefHeight="4.0" prefWidth="948.0" />
+                            <Canvas fx:id="theCanvas" height="707.0" onMouseClicked="#MouseClick" onMouseDragged="#MouseDraw" onScroll="#onScroll" width="934.0" />
+                        <Separator layoutY="705.0" prefHeight="4.0" prefWidth="940.0" />
                         </children>
                   </AnchorPane>
               <Button fx:id="playStop" layoutX="24.0" layoutY="769.0" mnemonicParsing="false" onAction="#playStop" prefHeight="32.0" prefWidth="75.0" text="Play" />
               <Button fx:id="exitKnapp" layoutX="212.0" layoutY="770.0" mnemonicParsing="false" onAction="#randomGame" prefHeight="39.0" prefWidth="139.0" text="Randomize" />
               <ColorPicker fx:id="cellColor" layoutX="1051.0" layoutY="692.0" prefHeight="32.0" prefWidth="127.0" styleClass="colorpicker" />
               <Button layoutX="112.0" layoutY="769.0" mnemonicParsing="false" onAction="#clearButton" prefHeight="39.0" prefWidth="88.0" text="Clear" />
-              <ImageView fitHeight="156.0" fitWidth="130.0" layoutX="1022.0" layoutY="134.0" pickOnBounds="true" preserveRatio="true">
+              <ImageView fitHeight="121.0" fitWidth="127.0" layoutX="1015.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                       <Image url="@../../img/monster.png" />
                   </image>
               </ImageView>
               <Button fx:id="exitGame" layoutX="1066.0" layoutY="768.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="32.0" prefWidth="88.0" styleClass="closebutton" text="Close" />
               <Button fx:id="oneStep" layoutX="362.0" layoutY="769.0" mnemonicParsing="false" onAction="#oneStep" prefHeight="39.0" prefWidth="178.0" text="One Generation" />
-              <Slider fx:id="speedSlider" layoutX="1001.0" layoutY="515.0" prefHeight="14.0" prefWidth="169.0" />
-              <Label layoutX="1011.0" layoutY="483.0" text="Speed" />
+              <Slider fx:id="speedSlider" layoutX="1012.0" layoutY="387.0" prefHeight="18.0" prefWidth="159.0" />
+              <Label layoutX="956.0" layoutY="386.0" prefHeight="21.0" prefWidth="42.0" text="Speed" />
               <ColorPicker fx:id="backgroundColor" layoutX="1051.0" layoutY="633.0" prefHeight="32.0" prefWidth="127.0" />
               <ColorPicker fx:id="gridColor" layoutX="1051.0" layoutY="578.0" prefHeight="32.0" prefWidth="127.0" />
               <Label layoutX="964.0" layoutY="639.0" text="Background:">
@@ -88,35 +87,29 @@
                       <Font name="Arial" size="14.0" />
                   </font>
               </Label>
-              <Label layoutX="1011.0" layoutY="59.0" text="Game of Life - GoL">
-                  <font>
-                      <Font size="18.0" />
-                  </font>
-              </Label>
-              <Label layoutX="1067.0" layoutY="86.0" text="by Moki">
-                  <font>
-                      <Font size="12.0" />
-                  </font>
-              </Label>
-              <Label layoutX="1015.0" layoutY="410.0" text="Adjust the Game">
+              <Label layoutX="1002.0" layoutY="275.0" text="Adjust the Game">
                   <font>
                       <Font size="20.0" />
                   </font>
               </Label>
-              <Separator layoutX="949.0" layoutY="374.0" prefHeight="4.0" prefWidth="275.0" />
+              <Separator layoutX="935.0" layoutY="324.0" prefHeight="4.0" prefWidth="284.0" />
             <Button layoutX="799.0" layoutY="768.0" mnemonicParsing="false" onAction="#fileChooser" prefHeight="39.0" prefWidth="217.0" text="Load your Pattern" />
             <Button id="arrow2" fx:id="patternUp" layoutX="640.0" layoutY="749.0" mnemonicParsing="false" onAction="#patternUp" prefHeight="31.0" prefWidth="52.0" text="↑" />
             <Button id="arrow4" layoutX="640.0" layoutY="792.0" mnemonicParsing="false" onAction="#patternDown" prefHeight="31.0" prefWidth="52.0" text="↓" />
             <Button id="arrow1" layoutX="576.0" layoutY="768.0" mnemonicParsing="false" onAction="#patternLeft" prefHeight="31.0" prefWidth="52.0" text="←" />
             <Button id="arrow3" layoutX="702.0" layoutY="768.0" mnemonicParsing="false" onAction="#patternRight" prefHeight="31.0" prefWidth="52.0" text="→" />
-            <Button layoutX="1016.0" layoutY="310.0" mnemonicParsing="false" onAction="#Instructions" prefHeight="30.0" prefWidth="139.0" text="Instructions" />
-              <CheckBox fx:id="checkcircle" layoutX="1005.0" layoutY="448.0" mnemonicParsing="false" onAction="#checkcircle" text="Circle shape cells" />
-            <RadioButton fx:id="staticButton" layoutX="964.0" layoutY="300.0" mnemonicParsing="false" onAction="#changeStat" text="s" />
-            <RadioButton fx:id="dynamicButton" layoutX="969.0" layoutY="264.0" mnemonicParsing="false" onAction="#changeDyn" text="d" />
-            <ComboBox fx:id="rulecell" layoutX="1068.0" layoutY="483.0" onAction="#nextGenRule" />
-            <CheckBox fx:id="dynamicSize" layoutX="1007.0" layoutY="545.0" mnemonicParsing="false" onAction="#dynamicSize" text="Dynamic Board Size" />
-            <Slider fx:id="sizeSlider" layoutX="998.0" layoutY="378.0" />
+            <Button layoutX="999.0" layoutY="225.0" mnemonicParsing="false" onAction="#Instructions" prefHeight="30.0" prefWidth="139.0" text="Instructions" />
+              <CheckBox fx:id="checkcircle" layoutX="977.0" layoutY="509.0" mnemonicParsing="false" onAction="#checkcircle" prefHeight="21.0" prefWidth="139.0" text="Circle shape cells" />
+            <RadioButton fx:id="staticButton" layoutX="992.0" layoutY="338.0" mnemonicParsing="false" onAction="#changeStat" text="Static" />
+            <RadioButton fx:id="dynamicButton" layoutX="1087.0" layoutY="338.0" mnemonicParsing="false" onAction="#changeDyn" text="Dynamic" />
+            <ComboBox fx:id="rulecell" layoutX="1018.0" layoutY="460.0" onAction="#nextGenRule" prefHeight="31.0" prefWidth="139.0" />
+            <CheckBox fx:id="dynamicSize" layoutX="977.0" layoutY="542.0" mnemonicParsing="false" onAction="#dynamicSize" text="Dynamic Board Size" />
+            <Slider fx:id="sizeSlider" layoutX="1012.0" layoutY="428.0" prefHeight="18.0" prefWidth="159.0" />
             <Label layoutX="981.0" layoutY="584.0" text="Grid" />
+                  <Separator layoutX="934.0" layoutY="33.0" orientation="VERTICAL" prefHeight="707.0" prefWidth="3.0" />
+            <Label layoutX="956.0" layoutY="427.0" prefHeight="21.0" prefWidth="29.0" text="Size" />
+            <Label layoutX="956.0" layoutY="460.0" text="Change" />
+            <Label layoutX="961.0" layoutY="476.0" prefHeight="17.0" prefWidth="41.0" text="Rules" />
           </children>
       </AnchorPane>
       <HBox prefHeight="850.0" prefWidth="1.0" />

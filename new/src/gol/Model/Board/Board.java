@@ -71,7 +71,7 @@ public class Board implements InterfaceBoard {
      */
     public void draw() {
         gc.setFill(backgroundColor.getValue());
-        gc.fillRect(0, 0, width *cellSize + 2, height *cellSize + 2);
+        gc.fillRect(0, 0, width *cellSize, height *cellSize);
         gc.setFill(cellColor.getValue());
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
@@ -89,14 +89,15 @@ public class Board implements InterfaceBoard {
     /**
      * Next generation, counts neighbours and sets
      * next generation. If there is less than two neighbours
-     * the cell dies. LifeDecoder with two or three neighbours continues
-     * to live. LifeDecoder with more than three neighbours die. If a dead
+     * the cell dies. Cells with two or three neighbours continues
+     * to live. Cells with more than three neighbours die. If a dead
      * cell is surrounded with 3 alive cells, it becomes alive.
      *
      * @author Momcilo Delic - s315282
      */
     public void nextGeneration(){
         byte[][] nextBoard = new byte[board.length][board[0].length];
+
         for (int x = 1; x < board.length; x++) {
             for (int y = 1; y < board[0].length; y++) {
 
@@ -173,6 +174,16 @@ public class Board implements InterfaceBoard {
         }
     }
 
+    @Override
+    public void setLive(int y, int x, byte state){
+        board[y][x] = state;
+    }
+
+    @Override
+    public byte getLive(int x, int y) {
+        return board[x][y];
+    }
+
     /**
      * Accessing the Rrandom Java class
      * Making new byte board (randomBoard)
@@ -243,61 +254,59 @@ public class Board implements InterfaceBoard {
     }
 
     public void patternUp(){
-            byte[][] testBoard = new byte[getHeight()][getWidth()];
+            byte[][] patternUp = new byte[getHeight()][getWidth()];
 
             for (int x = 0; x < getHeight(); x++) {
                 for (int y = 0; y < getWidth(); y++) {
-                    if (getLive(x, y) == 1) testBoard[x - movedistance][y] = 1;
+                    if (getLive(x, y) == 1) patternUp[x - movedistance][y] = 1;
                 }
             }
-            board = testBoard;
-            setgameBoard(testBoard);
-            draw();
+            board = patternUp;
     }
 
     public void patternDown(){
-            byte[][] testBoard = new byte[getHeight()][getWidth()];
+            byte[][] patternDown = new byte[getHeight()][getWidth()];
 
             for (int x = 0; x < getHeight(); x++) {
                 for (int y = 0; y < getWidth(); y++) {
-                    if (getLive(x, y) == 1) testBoard[x + movedistance][y] = 1;
+                    if (getLive(x, y) == 1) patternDown[x + movedistance][y] = 1;
                 }
             }
-            board = testBoard;
-            setgameBoard(testBoard);
+            board = patternDown;
+            setgameBoard(patternDown);
             draw();
 
     }
 
     @Override
-    public void epilepsyAttack() {
+    public void ImprovizedRule() {
 
     }
 
     public void patternLeft(){
-            byte[][] testBoard = new byte[getHeight()][getWidth()];
+            byte[][] patternLeft = new byte[getHeight()][getWidth()];
 
             for (int x = 0; x < getHeight(); x++) {
                 for (int y = 0; y < getWidth(); y++) {
-                    if (getLive(x, y) == 1) testBoard[x][y - movedistance] = 1;
+                    if (getLive(x, y) == 1) patternLeft[x][y - movedistance] = 1;
                 }
             }
-            board = testBoard;
-            setgameBoard(testBoard);
+            board = patternLeft;
+            setgameBoard(patternLeft);
             draw();
 
     }
 
     public void patternRight(){
-            byte[][] testBoard = new byte[getHeight()][getWidth()];
+            byte[][] patternRight = new byte[getHeight()][getWidth()];
 
             for (int x = 0; x < getHeight(); x++) {
                 for (int y = 0; y < getWidth(); y++){
-                    if (getLive(x, y) == 1) testBoard[x][y + movedistance] = 1;
+                    if (getLive(x, y) == 1) patternRight[x][y + movedistance] = 1;
                 }
             }
-            board = testBoard;
-            setgameBoard(testBoard);
+            board = patternRight;
+            setgameBoard(patternRight);
             draw();
 
     }
@@ -308,13 +317,13 @@ public class Board implements InterfaceBoard {
     }
 
     public String toString() {
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
         for(int i = 0; i < board.length; i++){
             for(int j = 0; j < board[i].length; j++){
-                stringBuffer.append(board[i][j]);
+                stringBuilder.append(getLive(i,j));
             }
         }
-        return stringBuffer.toString();
+        return stringBuilder.toString();
     }
 
     // Setters
@@ -341,11 +350,6 @@ public class Board implements InterfaceBoard {
 
     }
 
-    public void setLive(int y, int x, byte state){
-        board[y][x] = state;
-    }
-
-
 
     // Getters
     @Override
@@ -367,10 +371,6 @@ public class Board implements InterfaceBoard {
         return board[0].length;
     }
 
-    @Override
-    public byte getLive(int x, int y) {
-        return board[x][y];
-    }
 }
 
 
