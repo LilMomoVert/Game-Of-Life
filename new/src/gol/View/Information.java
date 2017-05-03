@@ -63,13 +63,13 @@ public class Information {
         out.showAndWait();
     }
 
-    public void ErrorMoveOut(){
-        Alert out = new Alert(Alert.AlertType.INFORMATION);
-        out.setTitle("Info");
-        out.setHeaderText("Ooops :/");
-        out.setContentText(" \nDu kan ikke flytte møsteret utenfor spillebrettet!");
-        out.getDialogPane().setPrefSize(320, 300);
-        out.showAndWait();
+    public void ErrorStaticBoard(){
+        Alert errorStatic = new Alert(Alert.AlertType.INFORMATION);
+        errorStatic.setTitle("Info");
+        errorStatic.setHeaderText("Game Information");
+        errorStatic.setContentText(" \nDu kan ikke flytte på mønsteret når brettet er satt på 'STATIC'");
+        errorStatic.getDialogPane().setPrefSize(320, 300);
+        errorStatic.showAndWait();
     }
 
     public void Ops(){

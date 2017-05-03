@@ -123,6 +123,7 @@ public class DynamicBoard implements InterfaceBoard {
 
     @Override
     public void patternUp() {
+        addTop();
         testBoard = new ArrayList<>();
         for (int y = 0; y < board.size(); y++) {
             ArrayList<Byte> row = new ArrayList<>();
@@ -142,7 +143,7 @@ public class DynamicBoard implements InterfaceBoard {
 
     @Override
     public void patternDown() {
-        addTopBottom();
+        addDown();
         testBoard = new ArrayList<>();
         for (int y = 0; y < board.size(); y++) {
             ArrayList<Byte> row = new ArrayList<>();
@@ -162,6 +163,7 @@ public class DynamicBoard implements InterfaceBoard {
 
     @Override
     public void patternLeft() {
+        addLeft();
         testBoard = new ArrayList<>();
         for (int y = 0; y < board.size(); y++) {
             ArrayList<Byte> row = new ArrayList<>();
@@ -169,7 +171,7 @@ public class DynamicBoard implements InterfaceBoard {
                 row.add((byte) 0);
             testBoard.add(row);
         }
-        for (int x = 0; x < board.size() - 1; x++) {
+        for (int x = 0; x < board.size(); x++) {
             for (int y = 0; y < board.get(x).size(); y++) {
                 if (getLive(x, y) == 1)
                     testBoard.get(x).set(y - movedistance, (byte) 1);
@@ -181,7 +183,7 @@ public class DynamicBoard implements InterfaceBoard {
 
     @Override
     public void patternRight() {
-        addLeftRight();
+        addRight();
         testBoard = new ArrayList<>();
         for (int y = 0; y < board.size(); y++) {
             ArrayList<Byte> row = new ArrayList<>();
@@ -236,8 +238,10 @@ public class DynamicBoard implements InterfaceBoard {
 
     @Override
     public void nextGeneration() {
-        addLeftRight();
-        addTopBottom();
+        addLeft();
+        addRight();
+        addTop();
+        addDown();
 
         ArrayList<ArrayList<Byte>> nextBoard = new ArrayList<>();
         for (int i = 0; i < width; i++) {
@@ -267,8 +271,10 @@ public class DynamicBoard implements InterfaceBoard {
     }
 
     public void CoolRandomRuleShapeWithAnAwesomeName() {
-        addLeftRight();
-        addTopBottom();
+        addLeft();
+        addRight();
+        addTop();
+        addDown();
 
         ArrayList<ArrayList<Byte>> nextBoard = new ArrayList<>();
         for (int i = 0; i < width; i++) {
@@ -298,9 +304,10 @@ public class DynamicBoard implements InterfaceBoard {
 
     @Override
     public void ImprovizedRule() {
-        addLeftRight();
-        addTopBottom();
-
+        addLeft();
+        addRight();
+        addTop();
+        addDown();
         ArrayList<ArrayList<Byte>> nextBoard = new ArrayList<>();
         for (int i = 0; i < width; i++) {
             nextBoard.add(new ArrayList<>());
@@ -396,16 +403,35 @@ public class DynamicBoard implements InterfaceBoard {
         }
     }
 
-    public void addLeftRight(){
-        int inc = 1;
 
+    public void addLeft() {
         for (int y = 0; y < width; y++) {
             if (board.get(y).get(0) == 1) {
-                height++;  // messed up with refactoring.. its supposted to be width++
+                height++;
                 for (int i = 0; i < width; i++) {
                     board.get(i).add(0, (byte) 0);
                 }
             }
+        }
+    }
+
+    public void addTop() {
+        for (int x = 0; x < height; x++) {
+            if (board.get(0).get(x) == 1) {
+                width++;
+//                board.add(0, new ArrayList<>());
+                ArrayList<Byte> temp = new ArrayList<Byte>();
+                for (int i = 0; i < height; i++) {
+//                    board.get(0).add((byte) 0);
+                    temp.add((byte) 0);
+                }
+                board.add(0, temp);
+            }
+        }
+    }
+
+    public void addRight(){
+        for (int y = 0; y < width; y++) {
             if (board.get(y).get(height - 2) == 1) {
                 height++;
                 for (int i = 0; i < width; i++) {
@@ -415,20 +441,10 @@ public class DynamicBoard implements InterfaceBoard {
         }
     }
 
-    public void addTopBottom(){
+    public void addDown(){
         int inc = 1;
 
         for (int x = 0; x < height; x++) {
-            if (board.get(0).get(x) == 1) {
-                width++;
-//                board.add(0, new ArrayList<>());
-                ArrayList<Byte> temp = new ArrayList<Byte>();
-                for (int i = 0; i < height; i++) {
-//                    board.get(0).add((byte) 0);
-                    temp.add((byte)0);
-                }
-                board.add(0,temp);
-            }
             if (board.get(width - 2).get(x) == 1) {
                 width++;
                 board.add(new ArrayList<>());

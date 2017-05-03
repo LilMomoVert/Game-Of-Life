@@ -72,28 +72,32 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         cellSize = 15;
+        dynamicSize.setSelected(true);
+        dynamicButton.setSelected(true);
 
         gc = theCanvas.getGraphicsContext2D();
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, theCanvas.getWidth(), theCanvas.getHeight());
 
+        // Initialize objects
         info = new Information();
-
         gameBoard = new DynamicBoard(gc, cellSize, 45, 60);
 
         initMethods();
     }
 
     public void initMethods(){
+        // Setting default color for the Colorpickers
         backgroundColor.setValue(WHITE);
         gridColor.setValue(BLACK);
         cellColor.setValue(RED);
 
+        // S
         gameBoard.setCellColor(cellColor);
         gameBoard.setGridColor(gridColor);
         gameBoard.setBackgroundColor(backgroundColor);
+
         sizeSlider.setValue(17);
         sizeSlider();
 
@@ -103,6 +107,8 @@ public class Controller implements Initializable {
         speedSlider();
 
         theCanvas.addEventFilter(MouseEvent.ANY, (e) -> theCanvas.requestFocus());
+
+        // Combobox
         rulecell.setValue("Normal Rules");
         rulecell.getItems().setAll("Normal Rules", "Fast Growth", "Improvized Rule");
 
@@ -195,11 +201,11 @@ public class Controller implements Initializable {
         }
     }
 
-    void staticBoard(){
+    private void staticBoard(){
         gameBoard = new Board(gc,cellSize, 47, 62);
     }
 
-    void dynamicBoard(){
+    private void dynamicBoard(){
         gameBoard = new DynamicBoard(gc,cellSize, 45, 60);
     }
 
@@ -347,11 +353,15 @@ public class Controller implements Initializable {
         nextGenRule();
     }
 
+
+    /**
+     * 
+     */
     public void patternUp(){
             try {
                 gameBoard.patternUp();
             } catch (IndexOutOfBoundsException ite) {
-                info.ErrorMoveOut();
+                info.ErrorStaticBoard();
             }
     }
 
@@ -359,7 +369,7 @@ public class Controller implements Initializable {
         try {
             gameBoard.patternDown();
         } catch (IndexOutOfBoundsException ite){
-            info.ErrorMoveOut();
+            info.ErrorStaticBoard();
         }
     }
 
@@ -367,7 +377,7 @@ public class Controller implements Initializable {
         try {
             gameBoard.patternLeft();
         } catch (IndexOutOfBoundsException ite){
-            info.ErrorMoveOut();
+            info.ErrorStaticBoard();
         }
     }
 
@@ -375,7 +385,7 @@ public class Controller implements Initializable {
         try {
             gameBoard.patternRight();
         } catch (IndexOutOfBoundsException ite){
-            info.ErrorMoveOut();
+            info.ErrorStaticBoard();
         }
     }
 
