@@ -27,17 +27,13 @@ public class DynamicBoard implements InterfaceBoard {
     //=========================================================================//
     //                             Variabler                                   //
     //=========================================================================//
-    private int                             width;
-    private int                             height;
+    private int                             width, height;
     private int                             movedistance = 1;
-    private double                          cellSize;
-    private ArrayList<ArrayList<Byte>>      board;
-    private ArrayList<ArrayList<Byte>>      randomBoard;
-    private ArrayList<ArrayList<Byte>>      testBoard;
+    private double                          cellHeight, cellWidth, cellSize;
+    private ArrayList<ArrayList<Byte>>      board, patternExtend;
     private GraphicsContext                 gc;
-    public double cellHeight, cellWidth;
-    public boolean circle = true;
-    public boolean dynamicSize = true;
+    public boolean                          circle;
+    public boolean                          dynamicSize = true;
 
 
 
@@ -59,12 +55,12 @@ public class DynamicBoard implements InterfaceBoard {
 
     @Override
     public int getHeight() {
-        return height;
+        return board.get(0).size();
     }
 
     @Override
     public int getWidth() {
-        return width;
+        return board.size();
     }
 
     @Override
@@ -80,29 +76,6 @@ public class DynamicBoard implements InterfaceBoard {
         this.dynamicSize = dynamicSize;
     }
 
-    public void draw(int x, int y) {
-        if(dynamicSize) {
-            cellHeight = getCanvasHeight() / x;
-            cellWidth = getCanvasWidth() / y;
-            if (cellWidth < cellHeight) {
-                cellSize = cellWidth;
-            } else {
-                cellSize = cellHeight;
-            }
-        }
-        for (int i = 0; i < y; i++) {
-            for (int j = 0; j < x; j++) {
-                if (getLive(i, j) == 1) {
-                    if(circle == true) {
-                        gc.fillRect(cellSize * j, cellSize * i, cellSize, cellSize);
-                    } else {
-                        gc.fillOval(cellSize * j, cellSize * i, cellSize, cellSize);
-                    }
-                }
-            }
-        }
-    }
-
     public double getCanvasHeight(){
         return (double) gc.getCanvas().widthProperty().intValue();
     }
@@ -116,7 +89,26 @@ public class DynamicBoard implements InterfaceBoard {
         gc.setFill(backgroundColor.getValue());
         gc.fillRect(0, 0, getCanvasHeight(), getCanvasWidth());
         gc.setFill(cellColor.getValue());
-        draw(getHeight(), getWidth());
+        if(dynamicSize) {
+            cellHeight = getCanvasHeight() / getHeight();
+            cellWidth = getCanvasWidth() / getWidth();
+            if (cellWidth < cellHeight) {
+                cellSize = cellWidth;
+            } else {
+                cellSize = cellHeight;
+            }
+        }
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                if (getLive(i, j) == 1) {
+                    if(circle == false) {
+                        gc.fillRect(cellSize * j, cellSize * i, cellSize, cellSize);
+                    } else {
+                        gc.fillOval(cellSize * j, cellSize * i, cellSize, cellSize);
+                    }
+                }
+            }
+        }
         drawGrid();
     }
 
@@ -124,92 +116,92 @@ public class DynamicBoard implements InterfaceBoard {
     @Override
     public void patternUp() {
         addTop();
-        testBoard = new ArrayList<>();
+        patternExtend = new ArrayList<>();
         for (int y = 0; y < board.size(); y++) {
             ArrayList<Byte> row = new ArrayList<>();
             for (int x = 0; x < board.get(y).size(); x++)
                 row.add((byte) 0);
-            testBoard.add(row);
+            patternExtend.add(row);
         }
         for (int x = 0; x < board.size(); x++) {
             for (int y = 0; y < board.get(x).size() - 1; y++) {
                 if (getLive(x, y) == 1)
-                    testBoard.get(x - movedistance).set(y, (byte) 1);
+                    patternExtend.get(x - movedistance).set(y, (byte) 1);
             }
         }
-        board = testBoard;
+        board = patternExtend;
         draw();
     }
 
     @Override
     public void patternDown() {
         addDown();
-        testBoard = new ArrayList<>();
+        patternExtend = new ArrayList<>();
         for (int y = 0; y < board.size(); y++) {
             ArrayList<Byte> row = new ArrayList<>();
             for (int x = 0; x < board.get(y).size(); x++)
                 row.add((byte) 0);
-            testBoard.add(row);
+            patternExtend.add(row);
         }
         for (int x = 0; x < board.size() - 1; x++) {
             for (int y = 0; y < board.get(x).size(); y++) {
                 if (getLive(x, y) == 1)
-                    testBoard.get((x + movedistance)).set(y, (byte) 1);
+                    patternExtend.get((x + movedistance)).set(y, (byte) 1);
             }
         }
-        board = testBoard;
+        board = patternExtend;
         draw();
     }
 
     @Override
     public void patternLeft() {
         addLeft();
-        testBoard = new ArrayList<>();
+        patternExtend = new ArrayList<>();
         for (int y = 0; y < board.size(); y++) {
             ArrayList<Byte> row = new ArrayList<>();
             for (int x = 0; x < board.get(y).size(); x++)
                 row.add((byte) 0);
-            testBoard.add(row);
+            patternExtend.add(row);
         }
         for (int x = 0; x < board.size(); x++) {
             for (int y = 0; y < board.get(x).size(); y++) {
                 if (getLive(x, y) == 1)
-                    testBoard.get(x).set(y - movedistance, (byte) 1);
+                    patternExtend.get(x).set(y - movedistance, (byte) 1);
             }
         }
-        board = testBoard;
+        board = patternExtend;
         draw();
     }
 
     @Override
     public void patternRight() {
         addRight();
-        testBoard = new ArrayList<>();
+        patternExtend = new ArrayList<>();
         for (int y = 0; y < board.size(); y++) {
             ArrayList<Byte> row = new ArrayList<>();
             for (int x = 0; x < board.get(y).size(); x++)
                 row.add((byte) 0);
-            testBoard.add(row);
+            patternExtend.add(row);
         }
         for (int x = 0; x < board.size(); x++) {
             for (int y = 0; y < board.get(x).size() - 1; y++) {
                 if (getLive(x, y) == 1)
-                    testBoard.get(x).set(y + movedistance, (byte) 1);
+                    patternExtend.get(x).set(y + movedistance, (byte) 1);
             }
         }
-        board = testBoard;
+        board = patternExtend;
         draw();
     }
 
     @Override
-    public void setgameBoard(byte[][] newBoard) {
-        this.width = newBoard.length;
-        this.height = newBoard[0].length;
+    public void setgameBoard(byte[][] newGameBoard) {
+        this.width = newGameBoard.length;
+        this.height = newGameBoard[0].length;
         this.board = new ArrayList<>();
-        for (int i = 0; i < newBoard.length; i++) {
+        for (int i = 0; i < newGameBoard.length; i++) {
             board.add(new ArrayList<>());
-            for (int j = 0; j < newBoard[i].length; j++) {
-                board.get(i).add(newBoard[i][j]);
+            for (int j = 0; j < newGameBoard[i].length; j++) {
+                board.get(i).add(newGameBoard[i][j]);
             }
         }
     }
@@ -237,7 +229,7 @@ public class DynamicBoard implements InterfaceBoard {
     }
 
     @Override
-    public void nextGeneration() {
+    public void nextGeneration(int start, int stop) {
         addLeft();
         addRight();
         addTop();
@@ -270,7 +262,7 @@ public class DynamicBoard implements InterfaceBoard {
         draw();
     }
 
-    public void CoolRandomRuleShapeWithAnAwesomeName() {
+    public void fastPopulateRule() {
         addLeft();
         addRight();
         addTop();
@@ -345,14 +337,17 @@ public class DynamicBoard implements InterfaceBoard {
     private int countNeighbours(int x, int y) {
         int cNeighbour = 0;
         if (x > 0) {
-            if (getLive(x - 1, y) == 1) cNeighbour++;
+            if (getLive(x - 1, y) == 1)
+                cNeighbour++;
 
             if (y > 0) {
-                if (getLive(x - 1,y - 1) == 1) cNeighbour++;
+                if (getLive(x - 1,y - 1) == 1)
+                    cNeighbour++;
             }
 
             if (y < height - 1) {
-                if (getLive(x - 1,y + 1) == 1) cNeighbour++;
+                if (getLive(x - 1,y + 1) == 1)
+                    cNeighbour++;
             }
         }
         if (y > 0) {
@@ -361,17 +356,20 @@ public class DynamicBoard implements InterfaceBoard {
             }
         }
         if (y < height - 1) {
-            if (getLive(x,y + 1) == 1) cNeighbour++;
+            if (getLive(x,y + 1) == 1)
+                cNeighbour++;
         }
         if (x < width - 1) {
             if (getLive(x + 1, y) == 1) {
                 cNeighbour++;
             }
             if (y > 0) {
-                if (getLive(x + 1,y - 1) == 1) cNeighbour++;
+                if (getLive(x + 1,y - 1) == 1)
+                    cNeighbour++;
             }
             if (y < height - 1) {
-                if (getLive(x + 1,y + 1) == 1) cNeighbour++;
+                if (getLive(x + 1,y + 1) == 1)
+                    cNeighbour++;
             }
         }
         return cNeighbour;
@@ -387,10 +385,11 @@ public class DynamicBoard implements InterfaceBoard {
                 board.get(x).add((byte) 0);
             }
         }
+        setgameBoard(new byte[45][60]);
     }
 
     private void drawGrid(){
-        if (cellSize > 3) {
+        if (cellSize > 2.5 ) {
             for (double i = 0; i < board.size() + 1; i++) {
                 gc.setStroke(gridColor.getValue());
                 gc.strokeLine(0, i * cellSize, board.get(0).size() * cellSize, i * cellSize);
@@ -419,10 +418,8 @@ public class DynamicBoard implements InterfaceBoard {
         for (int x = 0; x < height; x++) {
             if (board.get(0).get(x) == 1) {
                 width++;
-//                board.add(0, new ArrayList<>());
                 ArrayList<Byte> temp = new ArrayList<Byte>();
                 for (int i = 0; i < height; i++) {
-//                    board.get(0).add((byte) 0);
                     temp.add((byte) 0);
                 }
                 board.add(0, temp);
@@ -522,5 +519,17 @@ public class DynamicBoard implements InterfaceBoard {
     public double getCellSize(){
         return cellSize;
     }
+
+    @Override
+    public byte[][] getByteArray() {
+        byte convertToByte[][] = new byte[board.size()][board.get(0).size()];
+        for (int i = 0; i < board.size(); i++) {
+            for (int j = 0; j < board.get(0).size() ; j++) {
+                convertToByte[i][j] = board.get(i).get(j);
+            }
+        }
+        return convertToByte;
+    }
+
 
 }

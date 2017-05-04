@@ -1,2 +1,5 @@
-
 gol
+gol.Controller
+gol.Model.Board
+gol.Model.FileManager.Decoders
+gol.View

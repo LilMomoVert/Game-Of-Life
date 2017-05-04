@@ -29,7 +29,7 @@ public class DynamicBoardTest {
         dynamicBoard = new DynamicBoard(gc, cellSize, 5,5);
 
         dynamicBoard.setgameBoard(board);
-        dynamicBoard.nextGeneration();
+//        dynamicBoard.nextGeneration(start, stop);
 
         org.junit.Assert.assertEquals("000000000000000111000000000000", dynamicBoard.toString());
     }

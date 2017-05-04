@@ -31,7 +31,18 @@ public class RLEDecoder {
                     x = Integer.parseInt(matcher.group(1));
                     y = Integer.parseInt(matcher.group(1));
 
-                    board = new byte[x + 30][y + 40];
+                    board = new byte[x + 20][y + 20];
+
+                    break;
+                }
+            } else if(line.charAt(0) == 'y'){
+                Pattern pattern = Pattern.compile("[y][ ][=][ ]([\\d]+)[,][ ][x][ ][=][ ]([\\d]+)");
+                Matcher matcher = pattern.matcher(line);
+                if (matcher.find()) {
+                    x = Integer.parseInt(matcher.group(1));
+                    y = Integer.parseInt(matcher.group(1));
+
+                    board = new byte[x + 20][y + 20];
 
                     break;
                 }

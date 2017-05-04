@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="677.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="109.0" fitWidth="133.0" layoutX="23.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+       <image>
+           <Image url="@../../img/mouse.png" />
+       </image>
+      </ImageView>
+      <ImageView fitHeight="79.0" fitWidth="109.0" layoutX="172.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+       <image>
+           <Image url="@../../img/keys.png" />
+       </image>
+       </ImageView>
+      <ImageView fitHeight="56.0" fitWidth="149.0" layoutX="317.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+       <image>
+           <Image url="@../../img/colorpicker.png" />
+       </image>
+       </ImageView>
+      <Separator layoutY="199.0" prefHeight="2.0" prefWidth="675.0" />
+      <Separator layoutX="145.0" layoutY="2.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="6.0" />
+      <Separator layoutX="297.0" layoutY="1.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="6.0" />
+      <Separator layoutX="467.0" layoutY="2.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="13.0" />
+       <ImageView fitHeight="57.0" fitWidth="120.0" layoutX="18.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+           <image>
+               <Image url="@../../img/randomize.png" />
+           </image>
+       </ImageView>
+      <ImageView fitHeight="54.0" fitWidth="141.0" layoutX="156.0" layoutY="216.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+              <Image url="@../../img/Changerules.png" />
+          </image>
+      </ImageView>
+      <ImageView fitHeight="52.0" fitWidth="149.0" layoutX="314.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+              <Image url="@../../img/Sliders.png" />
+          </image>
+      </ImageView>
+      <ImageView fitHeight="41.0" fitWidth="169.0" layoutX="494.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+              <Image url="@../../img/changedyn.png" />
+          </image>
+      </ImageView>
+      <ImageView fitHeight="71.0" fitWidth="169.0" layoutX="490.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+              <Image url="@../../img/Extras.png" />
+          </image>
+      </ImageView>
+      <Label layoutX="30.0" layoutY="129.0" text="Draw your pattern" />
+      <Label layoutX="172.0" layoutY="129.0" text="Move your pattern" />
+      <Label layoutX="331.0" layoutY="100.0" text="Change the colors of:" />
+      <Label layoutX="488.0" layoutY="109.0" text="- Change the shape of the cells" />
+      <Label layoutX="486.0" layoutY="138.0" text="- Change the size to dynamicly " />
+      <Label layoutX="486.0" layoutY="155.0" text="resize." />
+      <Label layoutX="17.0" layoutY="302.0" text="Randomize your board" />
+      <Label layoutX="347.0" layoutY="127.0" text="- Cells" />
+      <Label layoutX="346.0" layoutY="168.0" text="- Grid" />
+      <Label layoutX="346.0" layoutY="147.0" text="- Background" />
+      <Label layoutX="187.0" layoutY="147.0" text="with A S D W" />
+      <Label layoutX="34.0" layoutY="147.0" text="with your mouse" />
+      <Label layoutX="182.0" layoutY="302.0" text="Change the rules" />
+      <Label layoutX="193.0" layoutY="319.0" text="of the game" />
+      <Label layoutX="355.0" layoutY="285.0" text="Use slider to" />
+      <Label layoutX="365.0" layoutY="302.0" text="increase:" />
+      <Label layoutX="363.0" layoutY="328.0" text="- Size" />
+      <Label layoutX="363.0" layoutY="345.0" text="- Speed" />
+      <Label layoutX="511.0" layoutY="302.0" text="Change to Statc/Dynamic" />
+      <Label layoutX="185.0" layoutY="166.0" text="or Arrow keys" />
+   </children>
+</AnchorPane>

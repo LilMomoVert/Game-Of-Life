@@ -1,5 +1,7 @@
 package gol.View;
 
+import gol.Model.Board.DynamicBoard;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -10,6 +12,7 @@ import javafx.scene.image.ImageView;
  * Created by Kani Boyka on 3/29/2017.
  */
 public class Information {
+
 
     /**
      * This class is for different type of information.
@@ -89,6 +92,5 @@ public class Information {
         out.getDialogPane().setPrefSize(320, 220);
         out.showAndWait();
     }
-
 
 }

@@ -1,6 +1,6 @@
 package gol;
 
-import gol.Model.Board.Board;
+import gol.Model.Board.StaticBoard;
 import javafx.scene.canvas.GraphicsContext;
 import org.junit.Test;
 
@@ -10,7 +10,7 @@ import org.junit.Test;
 public class StaticBoardNextGen {
 
     public double                cellSize;
-    public Board                 staticBoard;
+    public StaticBoard staticBoard;
     public GraphicsContext       gc;
 
     @Test
@@ -27,10 +27,10 @@ public class StaticBoardNextGen {
         // the current board is 0000000100001000010000000
         // next generation should be 0000000000011100000000000
 
-        staticBoard = new Board(gc, cellSize, 5,5);
+        staticBoard = new StaticBoard(gc, cellSize, 5,5);
 
         staticBoard.setgameBoard(board);
-        staticBoard.nextGeneration();
+//        staticBoard.nextGeneration(start, stop);
 
         org.junit.Assert.assertEquals("0000000000011100000000000", staticBoard.toString());
     }

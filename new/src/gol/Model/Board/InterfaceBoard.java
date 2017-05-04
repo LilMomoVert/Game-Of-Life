@@ -1,8 +1,8 @@
 package gol.Model.Board;
 
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
+
+import java.util.ArrayList;
 
 /**
  * Created by Momcilo Delic on 4/20/2017.
@@ -16,6 +16,10 @@ public interface InterfaceBoard {
 
     void setBackgroundColor(ColorPicker backgroundColor);
 
+    void setCellSize(double value);
+
+    void setgameBoard(byte[][] newGameBoard);
+
     void cellColorPicker();
 
     void backgroundColorPicker();
@@ -24,11 +28,7 @@ public interface InterfaceBoard {
 
     void draw();
 
-    void setCellSize(double value);
-
-    void setgameBoard(byte[][] testBoard4);
-
-    void nextGeneration();
+    void nextGeneration(int start, int stop);
 
     void Randomness();
 
@@ -52,11 +52,13 @@ public interface InterfaceBoard {
 
     void patternRight();
 
-    void CoolRandomRuleShapeWithAnAwesomeName();
+    void fastPopulateRule();
 
     void setCircle(boolean circle);
 
     void setDynamicSize(boolean dynamicSize);
 
     double getCellSize();
+
+    byte[][] getByteArray();
 }
