@@ -36,9 +36,9 @@ public interface InterfaceBoard {
 
     void setLive(int y, int x, byte state);
 
-    int getHeight();
-
     int getWidth();
+
+    int getHeight();
 
     byte getLive(int x, int y);
 

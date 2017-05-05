@@ -6,11 +6,14 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ColorPicker;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
  * Created by Momcilo Delic on 3/19/2017.
+ *
+ * The class implements an Interface
+ * This will make it easier for me to switch between the classes and methods
+ * in my controller.
  */
 public class StaticBoard implements InterfaceBoard {
 
@@ -108,22 +111,71 @@ public class StaticBoard implements InterfaceBoard {
         draw(); // If nextGeneration is being tested, comment out Draw method
     }
 
+    @Override
+    public void ImprovizedRule() {
+        byte[][] nextBoard = new byte[board.length][board[0].length];
+
+        for (int x = 1; x < board.length; x++) {
+            for (int y = 1; y < board[0].length; y++) {
+
+                int neighbors = countNeighbours(x,y);
+
+                if ((neighbors == 1)){
+                    nextBoard[x][y] = 0;
+                }
+                else if ((neighbors == 2)){
+                    nextBoard[x][y] = 1;
+                }
+                else if ((neighbors == 3)){
+                    nextBoard[x][y] = 1;
+                }
+            }
+        }
+        board = nextBoard;
+        draw();
+    }
+
+    @Override
+    public void fastPopulateRule() {
+        byte[][] nextBoard = new byte[board.length][board[0].length];
+
+        for (int x = 1; x < board.length; x++) {
+            for (int y = 1; y < board[0].length; y++) {
+
+                if ((getLive(x,y) == 1)&&(countNeighbours(x,y) < 2)){
+                    nextBoard[x][y] = 1;
+                }
+                else if ((getLive(x,y) == 1)&&(countNeighbours(x,y)  > 3)){
+                    nextBoard[x][y] = 1;
+                }
+                else if ((getLive(x,y) == 0)&&(countNeighbours(x,y)  == 3)){
+                    nextBoard[x][y] = 1;
+                }
+                else {
+                    nextBoard[x][y] = getLive(x,y);
+                }
+            }
+        }
+        board = nextBoard;
+        draw();
+    }
+
     private int countNeighbours(int x, int y) {
             int cNeighbours = 0;
 
-            if (x != getHeight() - 1)
+            if (x != getWidth() - 1)
                 if (getLive(x + 1, y) == 1)
                     cNeighbours++;
 
-            if (x != getHeight() - 1 && y != getWidth() - 1)
+            if (x != getWidth() - 1 && y != getHeight() - 1)
                 if (getLive(x + 1, y + 1) == 1)
                     cNeighbours++;
 
-            if (y != getWidth() - 1)
+            if (y != getHeight() - 1)
                 if (getLive(x, y + 1) == 1)
                     cNeighbours++;
 
-            if (x != 0 && y != getWidth() - 1)
+            if (x != 0 && y != getHeight() - 1)
                 if (getLive(x - 1, y + 1)== 1)
                     cNeighbours++;
 
@@ -139,7 +191,7 @@ public class StaticBoard implements InterfaceBoard {
                 if (getLive(x, y - 1) == 1)
                     cNeighbours++;
 
-            if (x != getHeight() - 1 && y != 0)
+            if (x != getWidth() - 1 && y != 0)
                 if (getLive(x + 1, y -1) == 1)
                     cNeighbours++;
 
@@ -241,10 +293,10 @@ public class StaticBoard implements InterfaceBoard {
     }
 
     public void patternUp(){
-            byte[][] patternUp = new byte[getHeight()][getWidth()];
+            byte[][] patternUp = new byte[getWidth()][getHeight()];
 
-            for (int x = 0; x < getHeight(); x++) {
-                for (int y = 0; y < getWidth(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                for (int y = 0; y < getHeight(); y++) {
                     if (getLive(x, y) == 1) patternUp[x - movedistance][y] = 1;
                 }
             }
@@ -252,10 +304,10 @@ public class StaticBoard implements InterfaceBoard {
     }
 
     public void patternDown(){
-            byte[][] patternDown = new byte[getHeight()][getWidth()];
+            byte[][] patternDown = new byte[getWidth()][getHeight()];
 
-            for (int x = 0; x < getHeight(); x++) {
-                for (int y = 0; y < getWidth(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                for (int y = 0; y < getHeight(); y++) {
                     if (getLive(x, y) == 1) patternDown[x + movedistance][y] = 1;
                 }
             }
@@ -265,61 +317,11 @@ public class StaticBoard implements InterfaceBoard {
 
     }
 
-    @Override
-    public void ImprovizedRule() {
-        byte[][] nextBoard = new byte[board.length][board[0].length];
-
-        for (int x = 1; x < board.length; x++) {
-            for (int y = 1; y < board[0].length; y++) {
-
-                int neighbors = countNeighbours(x,y);
-
-                if ((neighbors == 1)){
-                    nextBoard[x][y] = 0;
-                }
-                else if ((neighbors == 2)){
-                    nextBoard[x][y] = 1;
-                }
-                else if ((neighbors == 3)){
-                    nextBoard[x][y] = 1;
-                }
-            }
-        }
-        board = nextBoard;
-        draw();
-    }
-
-    @Override
-    public void fastPopulateRule() {
-        byte[][] nextBoard = new byte[board.length][board[0].length];
-
-        for (int x = 1; x < board.length; x++) {
-            for (int y = 1; y < board[0].length; y++) {
-
-                if ((getLive(x,y) == 1)&&(countNeighbours(x,y) < 2)){
-                    nextBoard[x][y] = 1;
-                }
-                else if ((getLive(x,y) == 1)&&(countNeighbours(x,y)  > 3)){
-                    nextBoard[x][y] = 1;
-                }
-                else if ((getLive(x,y) == 0)&&(countNeighbours(x,y)  == 3)){
-                    nextBoard[x][y] = 1;
-                }
-                else {
-                    nextBoard[x][y] = getLive(x,y);
-                }
-            }
-        }
-        board = nextBoard;
-        draw();
-    }
-
-
     public void patternLeft(){
-            byte[][] patternLeft = new byte[getHeight()][getWidth()];
+            byte[][] patternLeft = new byte[getWidth()][getHeight()];
 
-            for (int x = 0; x < getHeight(); x++) {
-                for (int y = 0; y < getWidth(); y++) {
+            for (int x = 0; x < getWidth(); x++) {
+                for (int y = 0; y < getHeight(); y++) {
                     if (getLive(x, y) == 1) patternLeft[x][y - movedistance] = 1;
                 }
             }
@@ -330,10 +332,10 @@ public class StaticBoard implements InterfaceBoard {
     }
 
     public void patternRight(){
-            byte[][] patternRight = new byte[getHeight()][getWidth()];
+            byte[][] patternRight = new byte[getWidth()][getHeight()];
 
-            for (int x = 0; x < getHeight(); x++) {
-                for (int y = 0; y < getWidth(); y++){
+            for (int x = 0; x < getWidth(); x++) {
+                for (int y = 0; y < getHeight(); y++){
                     if (getLive(x, y) == 1) patternRight[x][y + movedistance] = 1;
                 }
             }
@@ -354,18 +356,23 @@ public class StaticBoard implements InterfaceBoard {
     }
 
     // Setters
+    @Override
     public void setCellColor(ColorPicker cellColor){
         this.cellColor = cellColor;
     }
+    @Override
     public void setGridColor(ColorPicker gridColor){
         this.gridColor = gridColor;
     }
+    @Override
     public void setBackgroundColor(ColorPicker backgroundColor){
         this.backgroundColor = backgroundColor;
     }
+    @Override
     public void setCellSize(double Size){
         this.cellSize = Size;
     }
+    @Override
     public void setgameBoard(byte[][] newGameBoard) {
         this.board = newGameBoard;
     }
@@ -373,35 +380,31 @@ public class StaticBoard implements InterfaceBoard {
     public void setCircle(boolean circle) {
         this.circle = circle;
     }
-
     @Override
     public void setDynamicSize(boolean dynamicSize) {
         this.dynamicSize = dynamicSize;
     }
 
 
+
     // Getters
+    public byte[][] getBoard(){
+        return board;
+    }
     @Override
     public double getCellSize() {
         return cellSize;
     }
-
     @Override
     public byte[][] getByteArray() {
         return board;
     }
-
-    public byte[][] getBoard(){
-        return board;
-    }
-
-    @Override
-    public int getHeight() {
-        return board.length;
-    }
-
     @Override
     public int getWidth() {
+        return board.length;
+    }
+    @Override
+    public int getHeight() {
         return board[0].length;
     }
 

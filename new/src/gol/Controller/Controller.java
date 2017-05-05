@@ -110,7 +110,7 @@ public class Controller implements Initializable {
 
         // Initializing start objects
         info = new Information();
-        gameBoard = new DynamicBoard(gc, cellSize, 8000, 8000);
+        gameBoard = new DynamicBoard(gc, cellSize, 45, 60);
         threads = new GameThreads();
         initMethods();
     }
@@ -174,7 +174,7 @@ public class Controller implements Initializable {
      */
     public void dynamicSize(){
         if(dynamicSize.isSelected()){
-            dynamicsize = false;
+            dynamicsize = true;
             dynamicSize.setText("Dynamic Size (ON)");
         } else {
             dynamicsize = false;
@@ -194,7 +194,7 @@ public class Controller implements Initializable {
         {
             switch (rulecell.getValue().toString()) {
                 case "Normal Rules":
-                    gameBoard.nextGeneration(0, gameBoard.getWidth());
+                    gameBoard.nextGeneration(0, gameBoard.getHeight());
                     break;
                 case "Fast Population Rule":
                     gameBoard.fastPopulateRule();
@@ -294,8 +294,8 @@ public class Controller implements Initializable {
             double oldCellSize = gameBoard.getCellSize();
             // Saves the old height and with from dynamicBoard and uses it for the static
             // This will keep the board the same size
-            int oldWidth = gameBoard.getWidth();
-            int oldHeight = gameBoard.getHeight();
+            int oldWidth = gameBoard.getHeight();
+            int oldHeight = gameBoard.getWidth();
             gameBoard = new StaticBoard(gc,cellSize, oldWidth, oldHeight);
             clear();
             // Sets the convertedArray
@@ -424,29 +424,29 @@ public class Controller implements Initializable {
 //            int availableProcessors = Runtime.getRuntime().availableProcessors();
 //            for (int i = 0; i < Runtime.getRuntime().availableProcessors(); i++) {
 //
-//                int start1 = gameBoard.getWidth()*i / availableProcessors;
-//                int stop1 =  start1 + gameBoard.getWidth() / availableProcessors;
+//                int start1 = gameBoard.getHeight()*i / availableProcessors;
+//                int stop1 =  start1 + gameBoard.getHeight() / availableProcessors;
 //
 //                threads.addThreads(() -> {
 //                    gameBoard.nextGeneration(start1, stop1);
 //                });
 //
-//                int start2 = gameBoard.getWidth()*i / availableProcessors;
-//                int stop2 =  start2 + gameBoard.getWidth()*i / availableProcessors;
+//                int start2 = gameBoard.getHeight()*i / availableProcessors;
+//                int stop2 =  start2 + gameBoard.getHeight()*i / availableProcessors;
 //
 //                threads.addThreads(() -> {
 //                    gameBoard.nextGeneration(start2, stop2);
 //                });
 //
-//                int start3 = gameBoard.getWidth()*i / availableProcessors;
-//                int stop3 =  start3 + gameBoard.getWidth()*i / availableProcessors;
+//                int start3 = gameBoard.getHeight()*i / availableProcessors;
+//                int stop3 =  start3 + gameBoard.getHeight()*i / availableProcessors;
 //
 //                threads.addThreads(() -> {
 //                    gameBoard.nextGeneration(start3, stop3);
 //                });
 //
-//                int start4 = gameBoard.getWidth()*i / availableProcessors;
-//                int stop4 =  start4 + gameBoard.getWidth()*i / availableProcessors;
+//                int start4 = gameBoard.getHeight()*i / availableProcessors;
+//                int stop4 =  start4 + gameBoard.getHeight()*i / availableProcessors;
 //
 //                threads.addThreads(() -> {
 //                    gameBoard.nextGeneration(start4, stop4);
@@ -595,6 +595,7 @@ public class Controller implements Initializable {
     public void fileChooser() throws IOException {
         RLEDecoder parser = new RLEDecoder();
         FileChooser patternChooser = new FileChooser();
+        patternChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         patternChooser.setTitle("Choose your file");
         patternChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("RLE Files", "*.rle"));

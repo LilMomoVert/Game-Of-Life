@@ -101,7 +101,7 @@
               </Label>
               <Separator layoutX="935.0" layoutY="324.0" prefHeight="4.0" prefWidth="284.0" />
             <Button layoutX="799.0" layoutY="768.0" mnemonicParsing="false" onAction="#fileChooser" prefHeight="39.0" prefWidth="217.0" text="Load your Pattern" />
-            <Button layoutX="999.0" layoutY="225.0" mnemonicParsing="false" onAction="#Instructions" prefHeight="30.0" prefWidth="139.0" text="Instructions" />
+            <Button layoutX="1005.0" layoutY="226.0" mnemonicParsing="false" onAction="#Instructions" prefHeight="30.0" prefWidth="139.0" text="Instructions" />
               <CheckBox fx:id="checkcircle" layoutX="977.0" layoutY="509.0" mnemonicParsing="false" onAction="#checkcircle" prefHeight="21.0" prefWidth="178.0" text="Circle shape cells" />
             <RadioButton fx:id="staticButton" layoutX="992.0" layoutY="338.0" mnemonicParsing="false" onAction="#changeStat" text="Static">
                <font>

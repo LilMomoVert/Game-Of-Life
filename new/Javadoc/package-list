@@ -1,5 +1,6 @@
 gol
 gol.Controller
+gol.Model
 gol.Model.Board
 gol.Model.FileManager.Decoders
 gol.View

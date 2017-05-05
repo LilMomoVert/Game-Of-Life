@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/gol/Model/Board/StaticBoard.java" line="60" />
+    <bookmark url="file://$PROJECT_DIR$/src/gol/Model/Board/StaticBoard.java" line="63" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="90275f9c-3b34-440f-befb-8cad34674175" name="Default" comment="" />
@@ -28,32 +28,37 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
       <file leaf-file-name="gol.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gol/View/gol.fxml">
-          <provider selected="true" editor-type-id="text-editor">
+          <provider editor-type-id="text-editor">
             <state relative-caret-position="188">
               <caret line="67" column="92" lean-forward="false" selection-start-line="67" selection-start-column="84" selection-end-line="67" selection-end-column="92" />
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
             <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Information.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gol/View/Information.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-              <folding />
+      <file leaf-file-name="HowToPlay.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gol/View/HowToPlay.fxml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
+              <folding>
+                <marker date="1493942700396" expanded="true" signature="4060:4070" ph="..." />
+              </folding>
             </state>
+          </provider>
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+            <state />
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/gol/Main.java">
+      <file leaf-file-name="RLEDecoder.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/gol/Model/FileManager/Decoders/RLEDecoder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="25" column="8" lean-forward="false" selection-start-line="25" selection-start-column="8" selection-end-line="25" selection-end-column="66" />
+            <state relative-caret-position="1394">
+              <caret line="84" column="73" lean-forward="false" selection-start-line="84" selection-start-column="73" selection-end-line="84" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -72,8 +77,8 @@
       <file leaf-file-name="InterfaceBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gol/Model/Board/InterfaceBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+            <state relative-caret-position="357">
+              <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -85,20 +90,20 @@
         <entry file="file://$PROJECT_DIR$/src/gol/Model/GameThreads.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
-              <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gol/Controller/Controller.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="112" column="61" lean-forward="false" selection-start-line="112" selection-start-column="61" selection-end-line="112" selection-end-column="61" />
+            <state relative-caret-position="402">
+              <caret line="176" column="30" lean-forward="false" selection-start-line="176" selection-start-column="30" selection-end-line="176" selection-end-column="30" />
               <folding>
-                <element signature="e#19862#19863#0" expanded="true" />
-                <element signature="e#19891#19892#0" expanded="true" />
+                <element signature="e#19866#19867#0" expanded="true" />
+                <element signature="e#19895#19896#0" expanded="true" />
                 <element signature="docComment;method#oneStep#0;class#Controller#0" expanded="false" />
                 <element signature="method#playStop#0;class#Controller#0" expanded="false" />
               </folding>
@@ -106,11 +111,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StaticBoard.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="StaticBoard.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/gol/Model/Board/StaticBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+            <state relative-caret-position="1122">
+              <caret line="160" column="5" lean-forward="false" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
               <folding>
                 <element signature="docComment;method#StaticBoard#0;class#StaticBoard#0" expanded="false" />
                 <element signature="docComment;method#draw#0;class#StaticBoard#0" expanded="false" />
@@ -119,8 +124,6 @@
                 <element signature="docComment;method#cellColorPicker#0;class#StaticBoard#0" expanded="false" />
                 <element signature="docComment;method#drawGrid#0;class#StaticBoard#0" expanded="false" />
                 <element signature="method#toString#0;class#StaticBoard#0" expanded="false" />
-                <element signature="e#11812#11813#0" expanded="true" />
-                <element signature="e#11848#11849#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -141,31 +144,31 @@
       <file leaf-file-name="DynamicBoard.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gol/Model/Board/DynamicBoard.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-567">
-              <caret line="459" column="54" lean-forward="false" selection-start-line="459" selection-start-column="54" selection-end-line="459" selection-end-column="54" />
+            <state relative-caret-position="283">
+              <caret line="136" column="23" lean-forward="false" selection-start-line="136" selection-start-column="23" selection-end-line="136" selection-end-column="23" />
               <folding>
-                <element signature="docComment;method#DynamicBoard#0;class#DynamicBoard#0" expanded="false" />
-                <element signature="e#1792#1793#0" expanded="true" />
-                <element signature="e#1834#1835#0" expanded="true" />
-                <element signature="e#1963#1964#0" expanded="true" />
-                <element signature="e#1998#1999#0" expanded="true" />
-                <element signature="e#2053#2054#0" expanded="true" />
-                <element signature="e#2095#2096#0" expanded="true" />
-                <element signature="method#newBoard#0;class#DynamicBoard#0" expanded="false" />
-                <element signature="e#12848#12854#0" expanded="true" />
-                <element signature="docComment;method#cellColorPicker#0;class#DynamicBoard#0" expanded="false" />
-                <element signature="e#14297#14298#0" expanded="true" />
-                <element signature="e#14335#14336#0" expanded="true" />
-                <element signature="e#14574#14575#0" expanded="true" />
-                <element signature="e#14612#14613#0" expanded="true" />
-                <element signature="e#14839#14840#0" expanded="true" />
-                <element signature="e#14877#14878#0" expanded="true" />
-                <element signature="e#14979#14980#0" expanded="true" />
-                <element signature="e#15021#15022#0" expanded="true" />
-                <element signature="e#15089#15090#0" expanded="true" />
-                <element signature="e#15131#15132#0" expanded="true" />
-                <element signature="e#15211#15212#0" expanded="true" />
-                <element signature="e#15265#15266#0" expanded="true" />
+                <element signature="e#2960#2961#0" expanded="true" />
+                <element signature="e#3002#3003#0" expanded="true" />
+                <element signature="e#3375#3376#0" expanded="true" />
+                <element signature="e#3410#3411#0" expanded="true" />
+                <element signature="e#3659#3660#0" expanded="true" />
+                <element signature="e#3701#3702#0" expanded="true" />
+                <element signature="e#3971#3972#0" expanded="true" />
+                <element signature="e#4007#4008#0" expanded="true" />
+                <element signature="e#19029#19035#0" expanded="true" />
+                <element signature="e#20847#20848#0" expanded="true" />
+                <element signature="e#20885#20886#0" expanded="true" />
+                <element signature="e#21305#21306#0" expanded="true" />
+                <element signature="e#21343#21344#0" expanded="true" />
+                <element signature="e#21751#21752#0" expanded="true" />
+                <element signature="e#21789#21790#0" expanded="true" />
+                <element signature="e#21894#21895#0" expanded="true" />
+                <element signature="e#21936#21937#0" expanded="true" />
+                <element signature="e#22004#22005#0" expanded="true" />
+                <element signature="e#22046#22047#0" expanded="true" />
+                <element signature="e#22126#22127#0" expanded="true" />
+                <element signature="e#22180#22181#0" expanded="true" />
+                <element signature="method#getByteArray#0;class#DynamicBoard#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -189,11 +192,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setgameboard</find>
-      <find>gameboard.g</find>
-      <find>setValue</find>
-      <find>gameBoard</find>
-      <find>addTop</find>
       <find>mouseDra</find>
       <find>sizeSlider</find>
       <find>changeStat</find>
@@ -208,17 +206,22 @@
       <find>grid</find>
       <find>getByte</find>
       <find>image</find>
-      <find>pressKey</find>
       <find>mouseDraw</find>
       <find>getHeight</find>
       <find>getB</find>
       <find>cellColorPicker</find>
       <find>static</find>
       <find>nextGene</find>
-      <find>setMin</find>
-      <find>drawGrid</find>
-      <find>timeline</find>
       <find>setgameBoard</find>
+      <find>setMin</find>
+      <find>pressKey</find>
+      <find>timeline</find>
+      <find>drawGrid</find>
+      <find>setCir</find>
+      <find>circle</find>
+      <find>get</find>
+      <find>nextGeneration</find>
+      <find>dynamicSize</find>
     </findStrings>
   </component>
   <component name="GradleLocalSettings">
@@ -257,15 +260,12 @@
         <option value="$PROJECT_DIR$/src/gol/Model/FileManager/URLFile.java" />
         <option value="$PROJECT_DIR$/Tests/gol/nextGeneration.java" />
         <option value="$PROJECT_DIR$/src/gol/Model/FileManager/FileHandler.java" />
-        <option value="$PROJECT_DIR$/src/gol/Model/FileManager/Decoders/RLEDecoder.java" />
         <option value="$PROJECT_DIR$/src/HowToPlay.fxml" />
-        <option value="$PROJECT_DIR$/src/gol/View/HowToPlay.fxml" />
         <option value="$PROJECT_DIR$/src/gol/View/Information.java" />
         <option value="$PROJECT_DIR$/src/gol/Model/Board/GraphicsDisplay.java" />
         <option value="$PROJECT_DIR$/src/gol/Model/Board/Draw.java" />
         <option value="$PROJECT_DIR$/src/gol/Model/Board/BoardGraphics.java" />
         <option value="$PROJECT_DIR$/src/gol/Model/Board/f.java" />
-        <option value="$PROJECT_DIR$/src/gol/View/gol.fxml" />
         <option value="$PROJECT_DIR$/src/gol/Main.java" />
         <option value="$PROJECT_DIR$/src/gol/Model/Threds.java" />
         <option value="$PROJECT_DIR$/src/gol/Model/Threads.java" />
@@ -274,12 +274,15 @@
         <option value="$PROJECT_DIR$/Tests/gol/DynamicBoardTest.java" />
         <option value="$PROJECT_DIR$/src/gol/Model/Board/Board.java" />
         <option value="$PROJECT_DIR$/src/gol/Controller/Graphics.java" />
-        <option value="$PROJECT_DIR$/src/gol/Model/Board/StaticBoard.java" />
         <option value="$PROJECT_DIR$/src/gol/View/Style.css" />
         <option value="$PROJECT_DIR$/src/gol/Controller/CanvasDraw.java" />
-        <option value="$PROJECT_DIR$/src/gol/Model/Board/DynamicBoard.java" />
+        <option value="$PROJECT_DIR$/src/gol/View/gol.fxml" />
+        <option value="$PROJECT_DIR$/src/gol/View/HowToPlay.fxml" />
         <option value="$PROJECT_DIR$/src/gol/Model/Board/InterfaceBoard.java" />
+        <option value="$PROJECT_DIR$/src/gol/Model/FileManager/Decoders/RLEDecoder.java" />
+        <option value="$PROJECT_DIR$/src/gol/Model/Board/DynamicBoard.java" />
         <option value="$PROJECT_DIR$/src/gol/Controller/Controller.java" />
+        <option value="$PROJECT_DIR$/src/gol/Model/Board/StaticBoard.java" />
       </list>
     </option>
   </component>
@@ -1099,7 +1102,7 @@
       <option name="presentableId" value="Default" />
       <updated>1490775506910</updated>
       <workItem from="1493400500766" duration="8657000" />
-      <workItem from="1493808070985" duration="75873000" />
+      <workItem from="1493808070985" duration="84325000" />
     </task>
     <servers />
   </component>
@@ -1136,7 +1139,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="163607000" />
+    <option name="totallyTimeSpent" value="172059000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1168,7 +1171,7 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19114584" sideWeight="0.4822485" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3273305" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3266385" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24895833" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1364,35 +1367,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gol/Model/FileManager/FileHandler.java" />
-    <entry file="file://$PROJECT_DIR$/src/gol/Model/FileManager/Decoders/RLEDecoder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="46" column="26" lean-forward="true" selection-start-line="46" selection-start-column="26" selection-end-line="46" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_121/javafx-src.zip!/javafx/stage/Stage.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-117">
           <caret line="914" column="27" lean-forward="true" selection-start-line="914" selection-start-column="27" selection-end-line="914" selection-end-column="27" />
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gol/View/HowToPlay.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
-          <folding>
-            <marker date="1493837506064" expanded="true" signature="4121:4139" ph="..." />
-            <marker date="1493837506064" expanded="true" signature="4121:4153" ph="..." />
-          </folding>
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/gol/Model/Board/GraphicsDisplay.java" />
@@ -1439,17 +1418,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gol/View/gol.fxml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="67" column="92" lean-forward="false" selection-start-line="67" selection-start-column="84" selection-end-line="67" selection-end-column="92" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gol/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -1466,6 +1434,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/gol/Model/GameThreads.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gol/View/HowToPlay.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="46" column="50" lean-forward="false" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
+          <folding>
+            <marker date="1493942700396" expanded="true" signature="4060:4070" ph="..." />
+          </folding>
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gol/View/gol.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="67" column="92" lean-forward="false" selection-start-line="67" selection-start-column="84" selection-end-line="67" selection-end-column="92" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gol/Model/Board/InterfaceBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="56" column="0" lean-forward="false" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/gol/Controller/CanvasDraw.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1476,10 +1486,62 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/gol/Model/FileManager/Decoders/RLEDecoder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1394">
+          <caret line="84" column="73" lean-forward="false" selection-start-line="84" selection-start-column="73" selection-end-line="84" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gol/Model/Board/DynamicBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="136" column="23" lean-forward="false" selection-start-line="136" selection-start-column="23" selection-end-line="136" selection-end-column="23" />
+          <folding>
+            <element signature="e#2960#2961#0" expanded="true" />
+            <element signature="e#3002#3003#0" expanded="true" />
+            <element signature="e#3375#3376#0" expanded="true" />
+            <element signature="e#3410#3411#0" expanded="true" />
+            <element signature="e#3659#3660#0" expanded="true" />
+            <element signature="e#3701#3702#0" expanded="true" />
+            <element signature="e#3971#3972#0" expanded="true" />
+            <element signature="e#4007#4008#0" expanded="true" />
+            <element signature="e#19029#19035#0" expanded="true" />
+            <element signature="e#20847#20848#0" expanded="true" />
+            <element signature="e#20885#20886#0" expanded="true" />
+            <element signature="e#21305#21306#0" expanded="true" />
+            <element signature="e#21343#21344#0" expanded="true" />
+            <element signature="e#21751#21752#0" expanded="true" />
+            <element signature="e#21789#21790#0" expanded="true" />
+            <element signature="e#21894#21895#0" expanded="true" />
+            <element signature="e#21936#21937#0" expanded="true" />
+            <element signature="e#22004#22005#0" expanded="true" />
+            <element signature="e#22046#22047#0" expanded="true" />
+            <element signature="e#22126#22127#0" expanded="true" />
+            <element signature="e#22180#22181#0" expanded="true" />
+            <element signature="method#getByteArray#0;class#DynamicBoard#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gol/Controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="176" column="30" lean-forward="false" selection-start-line="176" selection-start-column="30" selection-end-line="176" selection-end-column="30" />
+          <folding>
+            <element signature="e#19866#19867#0" expanded="true" />
+            <element signature="e#19895#19896#0" expanded="true" />
+            <element signature="docComment;method#oneStep#0;class#Controller#0" expanded="false" />
+            <element signature="method#playStop#0;class#Controller#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/gol/Model/Board/StaticBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
+        <state relative-caret-position="1122">
+          <caret line="160" column="5" lean-forward="false" selection-start-line="160" selection-start-column="5" selection-end-line="160" selection-end-column="5" />
           <folding>
             <element signature="docComment;method#StaticBoard#0;class#StaticBoard#0" expanded="false" />
             <element signature="docComment;method#draw#0;class#StaticBoard#0" expanded="false" />
@@ -1488,70 +1550,6 @@
             <element signature="docComment;method#cellColorPicker#0;class#StaticBoard#0" expanded="false" />
             <element signature="docComment;method#drawGrid#0;class#StaticBoard#0" expanded="false" />
             <element signature="method#toString#0;class#StaticBoard#0" expanded="false" />
-            <element signature="e#11812#11813#0" expanded="true" />
-            <element signature="e#11848#11849#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gol/Model/GameThreads.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gol/Model/Board/DynamicBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-567">
-          <caret line="459" column="54" lean-forward="false" selection-start-line="459" selection-start-column="54" selection-end-line="459" selection-end-column="54" />
-          <folding>
-            <element signature="docComment;method#DynamicBoard#0;class#DynamicBoard#0" expanded="false" />
-            <element signature="e#1792#1793#0" expanded="true" />
-            <element signature="e#1834#1835#0" expanded="true" />
-            <element signature="e#1963#1964#0" expanded="true" />
-            <element signature="e#1998#1999#0" expanded="true" />
-            <element signature="e#2053#2054#0" expanded="true" />
-            <element signature="e#2095#2096#0" expanded="true" />
-            <element signature="method#newBoard#0;class#DynamicBoard#0" expanded="false" />
-            <element signature="e#12848#12854#0" expanded="true" />
-            <element signature="docComment;method#cellColorPicker#0;class#DynamicBoard#0" expanded="false" />
-            <element signature="e#14297#14298#0" expanded="true" />
-            <element signature="e#14335#14336#0" expanded="true" />
-            <element signature="e#14574#14575#0" expanded="true" />
-            <element signature="e#14612#14613#0" expanded="true" />
-            <element signature="e#14839#14840#0" expanded="true" />
-            <element signature="e#14877#14878#0" expanded="true" />
-            <element signature="e#14979#14980#0" expanded="true" />
-            <element signature="e#15021#15022#0" expanded="true" />
-            <element signature="e#15089#15090#0" expanded="true" />
-            <element signature="e#15131#15132#0" expanded="true" />
-            <element signature="e#15211#15212#0" expanded="true" />
-            <element signature="e#15265#15266#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gol/Model/Board/InterfaceBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="47" column="0" lean-forward="true" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/gol/Controller/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="112" column="61" lean-forward="false" selection-start-line="112" selection-start-column="61" selection-end-line="112" selection-end-column="61" />
-          <folding>
-            <element signature="e#19862#19863#0" expanded="true" />
-            <element signature="e#19891#19892#0" expanded="true" />
-            <element signature="docComment;method#oneStep#0;class#Controller#0" expanded="false" />
-            <element signature="method#playStop#0;class#Controller#0" expanded="false" />
           </folding>
         </state>
       </provider>
