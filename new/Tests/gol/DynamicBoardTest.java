@@ -5,7 +5,7 @@ import javafx.scene.canvas.GraphicsContext;
 import org.junit.Test;
 
 /**
- * Created by Kani Boyka on 4/29/2017.
+ * Created by Momcilo Delic on 3/15/2017.
  */
 public class DynamicBoardTest {
     public double       cellSize;

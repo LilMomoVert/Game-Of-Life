@@ -176,8 +176,8 @@ implements <a href="../../../gol/Model/Board/InterfaceBoard.html" title="interfa
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../gol/Model/Board/DynamicBoard.html#DynamicBoard-javafx.scene.canvas.GraphicsContext-double-int-int-">DynamicBoard</a></span>(javafx.scene.canvas.GraphicsContext&nbsp;gc,
             double&nbsp;cellSize,
-            int&nbsp;height,
-            int&nbsp;width)</code>
+            int&nbsp;width,
+            int&nbsp;height)</code>
 <div class="block">The constructor of the class DynamicBoard, with parameters</div>
 </td>
 </tr>
@@ -284,7 +284,7 @@ implements <a href="../../../gol/Model/Board/InterfaceBoard.html" title="interfa
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../gol/Model/Board/DynamicBoard.html#getHeight--">getHeight</a></span>()</code>
-<div class="block">Getter for my height</div>
+<div class="block">Getter for my width</div>
 </td>
 </tr>
 <tr id="i14" class="altColor">
@@ -295,7 +295,7 @@ implements <a href="../../../gol/Model/Board/InterfaceBoard.html" title="interfa
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../gol/Model/Board/DynamicBoard.html#getWidth--">getWidth</a></span>()</code>
-<div class="block">Getter for my width</div>
+<div class="block">Getter for my height</div>
 </td>
 </tr>
 <tr id="i16" class="altColor">
@@ -501,14 +501,14 @@ implements <a href="../../../gol/Model/Board/InterfaceBoard.html" title="interfa
 <h4>DynamicBoard</h4>
 <pre>public&nbsp;DynamicBoard(javafx.scene.canvas.GraphicsContext&nbsp;gc,
                     double&nbsp;cellSize,
-                    int&nbsp;height,
-                    int&nbsp;width)</pre>
+                    int&nbsp;width,
+                    int&nbsp;height)</pre>
 <div class="block">The constructor of the class DynamicBoard, with parameters</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>gc</code> - GraphicsContext</dd>
 <dd><code>cellSize</code> - The cellSize</dd>
-<dd><code>height,width</code> - The height and the width</dd>
+<dd><code>width,height</code> - The width and the height</dd>
 </dl>
 </li>
 </ul>
@@ -551,12 +551,12 @@ implements <a href="../../../gol/Model/Board/InterfaceBoard.html" title="interfa
 <li class="blockList">
 <h4>getWidth</h4>
 <pre>public&nbsp;int&nbsp;getWidth()</pre>
-<div class="block">Getter for my width</div>
+<div class="block">Getter for my height</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../gol/Model/Board/InterfaceBoard.html#getWidth--">getWidth</a></code>&nbsp;in interface&nbsp;<code><a href="../../../gol/Model/Board/InterfaceBoard.html" title="interface in gol.Model.Board">InterfaceBoard</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>returns the board width</dd>
+<dd>returns the board height</dd>
 </dl>
 </li>
 </ul>
@@ -567,12 +567,12 @@ implements <a href="../../../gol/Model/Board/InterfaceBoard.html" title="interfa
 <li class="blockList">
 <h4>getHeight</h4>
 <pre>public&nbsp;int&nbsp;getHeight()</pre>
-<div class="block">Getter for my height</div>
+<div class="block">Getter for my width</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../gol/Model/Board/InterfaceBoard.html#getHeight--">getHeight</a></code>&nbsp;in interface&nbsp;<code><a href="../../../gol/Model/Board/InterfaceBoard.html" title="interface in gol.Model.Board">InterfaceBoard</a></code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>returns the board height</dd>
+<dd>returns the board width</dd>
 </dl>
 </li>
 </ul>

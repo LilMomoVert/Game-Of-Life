@@ -6,6 +6,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Momcilo Delic on 4/20/2017.
+ *
+ * This is my InterfaceBoard interface
+ * Its intended for the Static and Dynamic Board to implement it
  */
 
 public interface InterfaceBoard {

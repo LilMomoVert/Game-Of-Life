@@ -31,13 +31,13 @@ public class DynamicBoard implements InterfaceBoard {
     //=========================================================================//
     //                             Variabler                                   //
     //=========================================================================//
-    private int                             width, height;
+    private int height, width;
     private int                             movedistance = 1;
     private double                          cellHeight, cellWidth, cellSize;
     private ArrayList<ArrayList<Byte>>      board, patternExtend;
     private GraphicsContext                 gc;
-    public boolean                          circle;
-    public boolean                          dynamicSize = true;
+    private boolean                         circle;
+    private boolean                         dynamicSize;
 
 
 
@@ -45,14 +45,15 @@ public class DynamicBoard implements InterfaceBoard {
      * The constructor of the class DynamicBoard, with parameters
      * @param gc GraphicsContext
      * @param cellSize The cellSize
-     * @param height,width The height and the width
+     * @param width,height The width and the height
      */
-    public DynamicBoard(GraphicsContext gc, double cellSize, int height, int width){
+    public DynamicBoard(GraphicsContext gc, double cellSize, int width, int height){
         this.cellSize = cellSize;
         this.gc = gc;
-        this.width = height;
         this.height = width;
+        this.width = height;
         newBoard();
+        dynamicSize = true;
     }
 
     /**
@@ -62,9 +63,9 @@ public class DynamicBoard implements InterfaceBoard {
      */
     private void newBoard(){
         board = new ArrayList<>();
-        for(int i = 0; i < width; i++){
+        for(int i = 0; i < height; i++){
             board.add(new ArrayList<>());
-            for (int j = 0; j < height; j++) {
+            for (int j = 0; j < width; j++) {
                 board.get(i).add((byte)0);
             }
         }
@@ -88,8 +89,8 @@ public class DynamicBoard implements InterfaceBoard {
     }
 
     /**
-     * Getter for my width
-     * @return returns the board width
+     * Getter for my height
+     * @return returns the board height
      * @author Momcilo Delic - s315282
      */
     @Override
@@ -98,8 +99,8 @@ public class DynamicBoard implements InterfaceBoard {
     }
 
     /**
-     * Getter for my height
-     * @return returns the board height
+     * Getter for my width
+     * @return returns the board width
      * @author Momcilo Delic - s315282
      */
     @Override
@@ -296,8 +297,8 @@ public class DynamicBoard implements InterfaceBoard {
      */
     @Override
     public void setgameBoard(byte[][] newGameBoard) {
-        this.width = newGameBoard.length;
-        this.height = newGameBoard[0].length;
+        this.height = newGameBoard.length;
+        this.width = newGameBoard[0].length;
         this.board = new ArrayList<>();
         for (int i = 0; i < newGameBoard.length; i++) {
             board.add(new ArrayList<>());
@@ -308,8 +309,8 @@ public class DynamicBoard implements InterfaceBoard {
     }
 
     public void setgameBoard(ArrayList<ArrayList<Byte>> newBoard) {
-        this.width = newBoard.size();
-        this.height = newBoard.get(0).size();
+        this.height = newBoard.size();
+        this.width = newBoard.get(0).size();
         this.board = new ArrayList<>();
         for (int i = 0; i < newBoard.size(); i++) {
             board.add(new ArrayList<>());
@@ -343,15 +344,14 @@ public class DynamicBoard implements InterfaceBoard {
         addDown();
 
         ArrayList<ArrayList<Byte>> nextGeneBoard = new ArrayList<>();
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < height; i++) {
             nextGeneBoard.add(new ArrayList<>());
-            for (int j = 0; j < height; j++) {
+            for (int j = 0; j < width; j++) {
                 nextGeneBoard.get(i).add((byte) 0);
             }
         }
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-
+        for (int x = 0; x < height; x++) {
+            for (int y = 0; y < width; y++) {
 
                 if (countNeighbours(x, y) == 3) {
                     nextGeneBoard.get(x).set(y, (byte) 1);
@@ -384,14 +384,14 @@ public class DynamicBoard implements InterfaceBoard {
         addDown();
 
         ArrayList<ArrayList<Byte>> nextBoard = new ArrayList<>();
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < height; i++) {
             nextBoard.add(new ArrayList<>());
-            for (int j = 0; j < height; j++) {
+            for (int j = 0; j < width; j++) {
                 nextBoard.get(i).add((byte) 0);
             }
         }
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int x = 0; x < height; x++) {
+            for (int y = 0; y < width; y++) {
 
                 if (countNeighbours(x,y) == 3){
                     nextBoard.get(x).set(y,(byte)1);
@@ -424,14 +424,14 @@ public class DynamicBoard implements InterfaceBoard {
         addTop();
         addDown();
         ArrayList<ArrayList<Byte>> nextBoard = new ArrayList<>();
-        for (int i = 0; i < width; i++) {
+        for (int i = 0; i < height; i++) {
             nextBoard.add(new ArrayList<>());
-            for (int j = 0; j < height; j++) {
+            for (int j = 0; j < width; j++) {
                 nextBoard.get(i).add((byte) 0);
             }
         }
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int x = 0; x < height; x++) {
+            for (int y = 0; y < width; y++) {
 
                 if (countNeighbours(x, y) == 1) {
                     nextBoard.get(x).set(y, (byte) 0);
@@ -483,7 +483,7 @@ public class DynamicBoard implements InterfaceBoard {
             }
 
             // This will check the neighbours for North/East
-            if (y < height - 1) {
+            if (y < width - 1) {
                 if (getLive(x - 1,y + 1) == 1)
                     cNeighbour++;
             }
@@ -497,13 +497,13 @@ public class DynamicBoard implements InterfaceBoard {
         }
 
         // This will check the neighbours for East
-        if (y < height - 1) {
+        if (y < width - 1) {
             if (getLive(x,y + 1) == 1)
                 cNeighbour++;
         }
 
         // This will check the neighbours for South
-        if (x < width - 1) {
+        if (x < height - 1) {
             if (getLive(x + 1, y) == 1) {
                 cNeighbour++;
             }
@@ -513,7 +513,7 @@ public class DynamicBoard implements InterfaceBoard {
                     cNeighbour++;
             }
             // This will check the neighbours for South/East
-            if (y < height - 1) {
+            if (y < width - 1) {
                 if (getLive(x + 1,y + 1) == 1)
                     cNeighbour++;
             }
@@ -532,9 +532,9 @@ public class DynamicBoard implements InterfaceBoard {
     @Override
     public void ClearButton(){
         board.clear();
-        for (int x = 0; x < width; x++) {
+        for (int x = 0; x < height; x++) {
             board.add(new ArrayList<>());
-            for(int y = 0; y < height; y++){
+            for(int y = 0; y < width; y++){
                 board.get(x).add((byte) 0);
             }
         }
@@ -572,10 +572,10 @@ public class DynamicBoard implements InterfaceBoard {
      * @author Momcilo Delic - s315282
      */
     public void addLeft() {
-        for (int y = 0; y < width; y++) {
+        for (int y = 0; y < height; y++) {
             if (board.get(y).get(0) == 1) {
-                height++;
-                for (int i = 0; i < width; i++) {
+                width++;
+                for (int i = 0; i < height; i++) {
                     board.get(i).add(0, (byte) 0);
                 }
             }
@@ -588,11 +588,11 @@ public class DynamicBoard implements InterfaceBoard {
      * @author Momcilo Delic - s315282
      */
     public void addTop() {
-        for (int x = 0; x < height; x++) {
+        for (int x = 0; x < width; x++) {
             if (board.get(0).get(x) == 1) {
-                width++;
+                height++;
                 ArrayList<Byte> temp = new ArrayList<Byte>();
-                for (int i = 0; i < height; i++) {
+                for (int i = 0; i < width; i++) {
                     temp.add((byte) 0);
                 }
                 board.add(0, temp);
@@ -606,10 +606,10 @@ public class DynamicBoard implements InterfaceBoard {
      * @author Momcilo Delic - s315282
      */
     public void addRight(){
-        for (int y = 0; y < width; y++) {
-            if (board.get(y).get(height - 2) == 1) {
-                height++;
-                for (int i = 0; i < width; i++) {
+        for (int y = 0; y < height; y++) {
+            if (board.get(y).get(width - 2) == 1) {
+                width++;
+                for (int i = 0; i < height; i++) {
                     board.get(i).add((byte) 0);
                 }
             }
@@ -624,12 +624,12 @@ public class DynamicBoard implements InterfaceBoard {
     public void addDown(){
         int inc = 1;
 
-        for (int x = 0; x < height; x++) {
-            if (board.get(width - 2).get(x) == 1) {
-                width++;
+        for (int x = 0; x < width; x++) {
+            if (board.get(height - 2).get(x) == 1) {
+                height++;
                 board.add(new ArrayList<>());
-                for (int i = 0; i < height; i++) {
-                    board.get(width - inc).add((byte) 0);
+                for (int i = 0; i < width; i++) {
+                    board.get(height - inc).add((byte) 0);
                 }
             }
         }
@@ -642,8 +642,8 @@ public class DynamicBoard implements InterfaceBoard {
      */
     public void Randomness(){
         Random random = new Random();
-        for (int i = 0; i < width ; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
                 board.get(i).set(j,(byte) random.nextInt(2));
             }
         }
@@ -728,7 +728,6 @@ public class DynamicBoard implements InterfaceBoard {
     public double getCellSize(){
         return cellSize;
     }
-
     @Override
     public byte[][] getByteArray() {
         byte convertToByte[][] = new byte[board.size()][board.get(0).size()];

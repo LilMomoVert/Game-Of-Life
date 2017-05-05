@@ -40,7 +40,7 @@ import static javafx.scene.paint.Color.*;
  * -----------  Software development Game Of Life ------------
  * This project is an implementation of the popular animation/game
  * called Game of Life by Conway. The game is implemented in Java.
- *
+ * <p>
  * The project started out with 3 group members and sadly, ended with only 1.
  * This made this project a lot of harder for me in many ways. I have never programmed
  * before and there was a lot to learn, from RegEX and RLE and all the way to ArrayList.
@@ -56,42 +56,55 @@ import static javafx.scene.paint.Color.*;
  * For instance, MenuController, CanvasController, Master Controller. Didn't get time to do this.
  */
 
-    // -"TODO:"- is used to show what can be improved in the code
+// -"TODO:"- is used to show what can be improved in the code
 
 public class Controller implements Initializable {
 
     //=========================================================================//
     //                             @FXML                                       //
     //=========================================================================//
-    @FXML public Button                 oneStep;
-    @FXML public Button                 playStop;
-    @FXML public Slider                 sizeSlider;
-    @FXML public Slider                 speedSlider;
-    @FXML public ColorPicker            cellColor;
-    @FXML public ColorPicker            backgroundColor;
-    @FXML public ColorPicker            gridColor;
-    @FXML public CheckBox               checkcircle;
-    @FXML public CheckBox               dynamicSize;
-    @FXML public ComboBox               rulecell;
-    @FXML public RadioButton            staticButton;
-    @FXML public RadioButton            dynamicButton;
-    @FXML public Canvas                 theCanvas;
+    @FXML
+    protected Button oneStep;
+    @FXML
+    protected Button playStop;
+    @FXML
+    protected Slider sizeSlider;
+    @FXML
+    protected Slider speedSlider;
+    @FXML
+    protected ColorPicker cellColor;
+    @FXML
+    protected ColorPicker backgroundColor;
+    @FXML
+    protected ColorPicker gridColor;
+    @FXML
+    protected CheckBox checkcircle;
+    @FXML
+    protected CheckBox dynamicSize;
+    @FXML
+    protected ComboBox rulecell;
+    @FXML
+    protected RadioButton staticButton;
+    @FXML
+    protected RadioButton dynamicButton;
+    @FXML
+    protected Canvas theCanvas;
     //=========================================================================//
     //                             Variables                                   //
     //=========================================================================//
 
-    private double                      cellSize;
-    public byte[][]                     board;
-    public GraphicsContext              gc;
-    private boolean                     circle;
-    private boolean                     dynamicsize = false;
+    private double cellSize;
+    protected byte[][] board;
+    private GraphicsContext gc;
+    private boolean circle;
+    private boolean dynamicsize = false;
 
     //=========================================================================//
     //                             References                                  //
     //=========================================================================//
-    private Information                 info;
-    private InterfaceBoard              gameBoard;
-    GameThreads threads;
+    private Information info;
+    private InterfaceBoard gameBoard;
+    private GameThreads threads;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -115,7 +128,7 @@ public class Controller implements Initializable {
         initMethods();
     }
 
-    public void initMethods(){
+    private void initMethods() {
         // Setting default color for the Colorpickers
         backgroundColor.setValue(WHITE);
         gridColor.setValue(BLACK);
@@ -153,8 +166,8 @@ public class Controller implements Initializable {
      * and afterwards sends the value to gameBoard
      * @author Momcilo Delic - s315282
      */
-    public void checkcircle(){
-        if(checkcircle.isSelected()){
+    public void checkcircle() {
+        if (checkcircle.isSelected()) {
             circle = true;
             checkcircle.setText("Circle Shape Cell (ON)");
         } else {
@@ -172,8 +185,8 @@ public class Controller implements Initializable {
      * gameboard
      * @author Momcilo Delic - s315282
      */
-    public void dynamicSize(){
-        if(dynamicSize.isSelected()){
+    public void dynamicSize() {
+        if (dynamicSize.isSelected()) {
             dynamicsize = true;
             dynamicSize.setText("Dynamic Size (ON)");
         } else {
@@ -214,8 +227,8 @@ public class Controller implements Initializable {
      * the pattern or stop the game by pressing space
      * @param kevent
      */
-    public void PressKey(KeyEvent kevent){
-        switch (kevent.getCode()){
+    public void PressKey(KeyEvent kevent) {
+        switch (kevent.getCode()) {
             case A:
                 try {
                     gameBoard.patternLeft();
@@ -257,8 +270,8 @@ public class Controller implements Initializable {
      * rectangle with the specified height/width
      * @author Momcilo Delic - s315282
      */
-    public void clear(){
-        gc.clearRect(0,0,theCanvas.getWidth(), theCanvas.getHeight());
+    private void clear() {
+        gc.clearRect(0, 0, theCanvas.getWidth(), theCanvas.getHeight());
         gc.setFill(Color.WHITE);
         gc.fillRect(0, 0, theCanvas.getWidth(), theCanvas.getHeight());
     }
@@ -283,10 +296,9 @@ public class Controller implements Initializable {
      *  @author Momcilo Delic - s315282
      */
     public void changeStat() {
-        if (!staticButton.isSelected()){
+        if (!staticButton.isSelected()) {
             staticButton.setSelected(true);
-        }
-        else{
+        } else {
             dynamicButton.setSelected(false);
             // Converts ArrayList to byte [][]
             byte[][] convertedArray = gameBoard.getByteArray();
@@ -296,7 +308,7 @@ public class Controller implements Initializable {
             // This will keep the board the same size
             int oldWidth = gameBoard.getHeight();
             int oldHeight = gameBoard.getWidth();
-            gameBoard = new StaticBoard(gc,cellSize, oldWidth, oldHeight);
+            gameBoard = new StaticBoard(gc, cellSize, oldWidth, oldHeight);
             clear();
             // Sets the convertedArray
             gameBoard.setgameBoard(convertedArray);
@@ -319,14 +331,13 @@ public class Controller implements Initializable {
      *
      *  @author Momcilo Delic - s315282
      */
-    public void changeDyn()  {
-        if (!dynamicButton.isSelected()){
+    public void changeDyn() {
+        if (!dynamicButton.isSelected()) {
             dynamicButton.setSelected(true);
-        }
-        else{
+        } else {
             staticButton.setSelected(false);
             byte[][] oldboard = gameBoard.getByteArray();
-            gameBoard = new DynamicBoard(gc,cellSize, 45, 60);
+            gameBoard = new DynamicBoard(gc, cellSize, 45, 60);
             gameBoard.setgameBoard(oldboard);
             initMethods();
             dynamicsize = true;
@@ -343,7 +354,7 @@ public class Controller implements Initializable {
      * start listening from the start of the program
      * @author Momcilo Delic - s315282
      */
-    public void speedSlider(){
+    private void speedSlider() {
         speedSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
@@ -363,11 +374,11 @@ public class Controller implements Initializable {
      *
      * @author Momcilo Delic - s315282
      */
-    public void sizeSlider(){
+    private void sizeSlider() {
         sizeSlider.valueProperty().addListener(new InvalidationListener() {
             @Override
             public void invalidated(Observable observable) {
-                if(dynamicSize.isSelected()){
+                if (dynamicSize.isSelected()) {
                     tl.stop();
                     playStop.setText("Play");
                     info.Error();
@@ -395,19 +406,19 @@ public class Controller implements Initializable {
      *
      */
     public void onScroll(ScrollEvent sEvent) {
-            double zoomValue = 1.5;
+        double zoomValue = 1.5;
 
-            if (sEvent.getDeltaY() <= 0) {
-                zoomValue = 1 / zoomValue;
-            }
+        if (sEvent.getDeltaY() <= 0) {
+            zoomValue = 1 / zoomValue;
+        }
 
-            double scale = theCanvas.getScaleX();
-            double newScale = scale * zoomValue;
-            if (newScale < 1.5 && newScale > 0.2) {
+        double scale = theCanvas.getScaleX();
+        double newScale = scale * zoomValue;
+        if (newScale < 1.5 && newScale > 0.2) {
 
-                theCanvas.setScaleX(newScale);
-                theCanvas.setScaleY(newScale);
-            }
+            theCanvas.setScaleX(newScale);
+            theCanvas.setScaleY(newScale);
+        }
     }
 
     /**
@@ -418,7 +429,9 @@ public class Controller implements Initializable {
      *
      * @author Momcilo Delic - s315282
      */
-    public Timeline tl;{
+    private Timeline tl;
+
+    {
         tl = new Timeline(new KeyFrame(Duration.millis(200), event -> {
             nextGen();
 //            int availableProcessors = Runtime.getRuntime().availableProcessors();
@@ -468,7 +481,7 @@ public class Controller implements Initializable {
      * About the game
      * @author Momcilo Delic - s315282
      */
-    public void about(){
+    public void about() {
         info.aboutGOL();
     }
 
@@ -476,7 +489,7 @@ public class Controller implements Initializable {
      * Made by
      * @author Momcilo Delic - s315282
      */
-    public void madeBy(){
+    public void madeBy() {
         info.authorInfo();
     }
 
@@ -503,14 +516,26 @@ public class Controller implements Initializable {
                 }
                 gameBoard.draw();
             } else {
+//                if (gameBoard instanceof DynamicBoard) {
+//                    int missingHeight = getY - gameBoard.getWidth();
+//                    if (missingHeight > 0)
+//                        for (int i = 0; i < missingHeight; i++) {
+//                            ((DynamicBoard) gameBoard).addDown();
+//                        }
+//
+//                    int missingWidth = getX - gameBoard.getHeight();
+//                    if (missingWidth > 0)
+//                        for (int i = 0; i < missingWidth; i++) {
+//                            ((DynamicBoard) gameBoard).addRight();
+//                        }
+//                }
                 if (gameBoard.getLive(getY, getX) == 0) {
                     gameBoard.setLive(getY, getX, (byte) 1);
                 }
                 gameBoard.draw();
 
             }
-        }
-        catch(IndexOutOfBoundsException ioeb){
+        } catch (IndexOutOfBoundsException ioeb) {
             System.out.println("Out of the game board..");
         }
     }
@@ -520,25 +545,25 @@ public class Controller implements Initializable {
         int getY = (int) (event.getY() / gameBoard.getCellSize());
 
         try {
-        if(event.isControlDown()){
+            if (event.isControlDown()) {
 
 
-                    if (gameBoard.getLive(getY, getX) == 1) {
-                        gameBoard.setLive(getY ,getX, (byte) 0);
-                    }
-                    gameBoard.draw();
+                if (gameBoard.getLive(getY, getX) == 1) {
+                    gameBoard.setLive(getY, getX, (byte) 0);
+                }
+                gameBoard.draw();
             } else {
 
-                    if (gameBoard.getLive(getY, getX) == 0) {
-                        gameBoard.setLive(getY ,getX, (byte) 1);
-                    }
-                    gameBoard.draw();
+                if (gameBoard.getLive(getY, getX) == 0) {
+                    gameBoard.setLive(getY, getX, (byte) 1);
+                }
+                gameBoard.draw();
 
             }
-        } catch (IndexOutOfBoundsException ioeb){
+        } catch (IndexOutOfBoundsException ioeb) {
             System.out.println("Clicked outside of the board");
         }
-        }
+    }
 
 
     /**
@@ -547,8 +572,8 @@ public class Controller implements Initializable {
      *
      * @author Momcilo Delic - s315282
      */
-    public void Instructions() throws Exception{
-        try{
+    public void Instructions() throws Exception {
+        try {
             Stage GameInstructions = new Stage();
             GameInstructions.getIcons().add(new Image("img/monster.png"));
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../View/HowToPlay.fxml"));
@@ -557,19 +582,18 @@ public class Controller implements Initializable {
             GameInstructions.setScene(newScene);
             GameInstructions.setTitle("Spillfunksjoner");
             GameInstructions.show();
-        } catch (Exception e){
+        } catch (Exception e) {
             info.Ops();
         }
     }
 
     /**
-     * nextGenRule being called to nextGen method
-     * After nextGenRule is set, this nextGen method
-     * will use it in the code.
+     * Gets the value(rule) selected from the
+     * the ComboBox and uses it as the nextGeneration rule
      *
      * @author Momcilo Delic - s31582
      */
-    public void nextGen(){
+    private void nextGen() {
         nextGenRule();
     }
 
@@ -577,7 +601,7 @@ public class Controller implements Initializable {
      * Button to generate Random generations
      * @author Momcilo Delic
      */
-    public void randomGame(){
+    public void randomGame() {
         gameBoard.Randomness();
         gameBoard.draw();
     }
@@ -620,7 +644,7 @@ public class Controller implements Initializable {
      * and draws new clean board.
      * @author Momcilo Delic - s315282
      */
-    public void clearButton(){
+    public void clearButton() {
         gameBoard.ClearButton();
         tl.stop();
         playStop.setText("Play");
@@ -632,7 +656,6 @@ public class Controller implements Initializable {
      * it goes only one generation
      * @author Momcilo Delic - s315282
      */
-    @FXML
     public void oneStep() {
         //Who needs animation if you have fast fingers :)
         nextGen();
@@ -645,8 +668,7 @@ public class Controller implements Initializable {
      * If the Animation is not running the Button is set to Play
      * @author Momcilo Delic - s315282
      */
-    @FXML
-    public void playStop()  {
+    public void playStop() {
         if (tl.getStatus() == Animation.Status.RUNNING) {
             tl.stop();
             playStop.setText("Play");
@@ -660,9 +682,7 @@ public class Controller implements Initializable {
     /**
      * Exit the game
      */
-    @FXML
-    public void exitGame()
-    {
+    public void exitGame() {
         Platform.exit();
     }
 

@@ -12,8 +12,8 @@ import java.util.Random;
  * Created by Momcilo Delic on 3/19/2017.
  *
  * The class implements an Interface
- * This will make it easier for me to switch between the classes and methods
- * in my controller.
+ * This will make it easier for me to switch between the Static Board
+ * and Dynamic Board methods in my controller.
  */
 public class StaticBoard implements InterfaceBoard {
 
@@ -32,7 +32,6 @@ public class StaticBoard implements InterfaceBoard {
     private int                         movedistance = 1;
     private double                      cellSize;
     private byte[][]                    board;
-    public double cellHeight, cellWidth;
     private byte[][]                    randomBoard;
     private GraphicsContext             gc;
     protected boolean                   dynamicSize = false;
@@ -224,7 +223,7 @@ public class StaticBoard implements InterfaceBoard {
     }
 
     /**
-     * Accessing the Rrandom Java class
+     * Accessing the Random Java class
      * Making new byte board (randomBoard)
      * Setting the randomGenerator to 2
      *
@@ -292,6 +291,12 @@ public class StaticBoard implements InterfaceBoard {
         }
     }
 
+    /**
+     * Make a new byte board for when the pattern is moved up
+     * setting the old board = patternUp board
+     *
+     * @author Momcilo Delic - s315282
+     */
     public void patternUp(){
             byte[][] patternUp = new byte[getWidth()][getHeight()];
 

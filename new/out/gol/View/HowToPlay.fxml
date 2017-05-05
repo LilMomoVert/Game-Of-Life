@@ -71,5 +71,6 @@
       <Label layoutX="363.0" layoutY="328.0" text="- Size" />
       <Label layoutX="363.0" layoutY="345.0" text="- Speed" />
       <Label layoutX="511.0" layoutY="302.0" text="Change to Statc/Dynamic" />
+      <Label layoutX="29.0" layoutY="177.0" text="Hold ctrl to delete" />
    </children>
 </AnchorPane>
