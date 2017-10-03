@@ -7,6 +7,9 @@ Noen av funksjonene:
   - Bruk av piltastere
   - Og mye mer! Last ned spillet for å teste ut :)
 
+
+# Utførsel av proskjektet
+
 Planlegging:
   - Planlegging
   - Bruk av GitHub og GitDesktop
