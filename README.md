@@ -1,5 +1,4 @@
-# Game of life
-Made by Momcilo Delic
+# Game of life - Made by Momcilo Delic
 
 Noen av funksjonene:
   - Skifte regler på spillet
