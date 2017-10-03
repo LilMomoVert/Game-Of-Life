@@ -7,7 +7,7 @@ Noen av funksjonene:
   - Bruk av piltastere
   - Og mye mer! Last ned spillet for å teste ut :)
   
-  ![alt text](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#/media/File:Gospers_glider_gun.gif)
+  ![alt text](https://i.imgur.com/ZRY1IlT.gif)
 
 
 # Utførsel av proskjektet
